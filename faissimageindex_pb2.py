@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='faissimageindex.proto',
   package='faiss',
   syntax='proto3',
-  serialized_pb=_b('\n\x15\x66\x61issimageindex.proto\x12\x05\x66\x61iss\"<\n\nAddRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0b\n\x03url\x18\x02 \x01(\t\x12\x15\n\rcreated_at_ts\x18\x03 \x01(\x03\"\x17\n\tIdRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"*\n\rSearchRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05\x63ount\x18\x02 \x01(\x05\"0\n\x0c\x46\x65tchRequest\x12 \n\x05items\x18\x01 \x03(\x0b\x32\x11.faiss.AddRequest\"\x1d\n\rImportRequest\x12\x0c\n\x04path\x18\x01 \x01(\t\" \n\rSimpleReponse\x12\x0f\n\x07message\x18\x01 \x01(\t\",\n\rSearchReponse\x12\x0b\n\x03ids\x18\x01 \x03(\x03\x12\x0e\n\x06scores\x18\x02 \x03(\x02\"\x07\n\x05\x45mpty2\xd4\x03\n\nImageIndex\x12\x30\n\x03\x41\x64\x64\x12\x11.faiss.AddRequest\x1a\x14.faiss.SimpleReponse\"\x00\x12\x32\n\x06Remove\x12\x10.faiss.IdRequest\x1a\x14.faiss.SimpleReponse\"\x00\x12\x36\n\x06Search\x12\x14.faiss.SearchRequest\x1a\x14.faiss.SearchReponse\"\x00\x12\x34\n\x05\x46\x65tch\x12\x13.faiss.FetchRequest\x1a\x14.faiss.SimpleReponse\"\x00\x12,\n\x04Info\x12\x0c.faiss.Empty\x1a\x14.faiss.SimpleReponse\"\x00\x12,\n\x04Save\x12\x0c.faiss.Empty\x1a\x14.faiss.SimpleReponse\"\x00\x12-\n\x05Train\x12\x0c.faiss.Empty\x1a\x14.faiss.SimpleReponse\"\x00\x12\x36\n\x06Import\x12\x14.faiss.ImportRequest\x1a\x14.faiss.SimpleReponse\"\x00\x12/\n\x07Migrate\x12\x0c.faiss.Empty\x1a\x14.faiss.SimpleReponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x15\x66\x61issimageindex.proto\x12\x05\x66\x61iss\"<\n\nAddRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0b\n\x03url\x18\x02 \x01(\t\x12\x15\n\rcreated_at_ts\x18\x03 \x01(\x03\"\x17\n\tIdRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"*\n\rSearchRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05\x63ount\x18\x02 \x01(\x05\"0\n\x0c\x46\x65tchRequest\x12 \n\x05items\x18\x01 \x03(\x0b\x32\x11.faiss.AddRequest\"\x1d\n\rImportRequest\x12\x0c\n\x04path\x18\x01 \x01(\t\" \n\rSimpleReponse\x12\x0f\n\x07message\x18\x01 \x01(\t\",\n\rSearchReponse\x12\x0b\n\x03ids\x18\x01 \x03(\x03\x12\x0e\n\x06scores\x18\x02 \x03(\x02\"\x07\n\x05\x45mpty\" \n\x11SimilarityRequest\x12\x0b\n\x03ids\x18\x01 \x03(\x03\"6\n\x11SimilarityReponse\x12\x12\n\nsimilarity\x18\x01 \x01(\x02\x12\r\n\x05\x63ount\x18\x02 \x01(\x05\x32\x98\x04\n\nImageIndex\x12\x30\n\x03\x41\x64\x64\x12\x11.faiss.AddRequest\x1a\x14.faiss.SimpleReponse\"\x00\x12\x32\n\x06Remove\x12\x10.faiss.IdRequest\x1a\x14.faiss.SimpleReponse\"\x00\x12\x36\n\x06Search\x12\x14.faiss.SearchRequest\x1a\x14.faiss.SearchReponse\"\x00\x12\x34\n\x05\x46\x65tch\x12\x13.faiss.FetchRequest\x1a\x14.faiss.SimpleReponse\"\x00\x12,\n\x04Info\x12\x0c.faiss.Empty\x1a\x14.faiss.SimpleReponse\"\x00\x12,\n\x04Save\x12\x0c.faiss.Empty\x1a\x14.faiss.SimpleReponse\"\x00\x12-\n\x05Train\x12\x0c.faiss.Empty\x1a\x14.faiss.SimpleReponse\"\x00\x12\x36\n\x06Import\x12\x14.faiss.ImportRequest\x1a\x14.faiss.SimpleReponse\"\x00\x12/\n\x07Migrate\x12\x0c.faiss.Empty\x1a\x14.faiss.SimpleReponse\"\x00\x12\x42\n\nSimilarity\x12\x18.faiss.SimilarityRequest\x1a\x18.faiss.SimilarityReponse\"\x00\x62\x06proto3')
 )
 
 
@@ -293,6 +293,75 @@ _EMPTY = _descriptor.Descriptor(
   serialized_end=331,
 )
 
+
+_SIMILARITYREQUEST = _descriptor.Descriptor(
+  name='SimilarityRequest',
+  full_name='faiss.SimilarityRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='ids', full_name='faiss.SimilarityRequest.ids', index=0,
+      number=1, type=3, cpp_type=2, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=333,
+  serialized_end=365,
+)
+
+
+_SIMILARITYREPONSE = _descriptor.Descriptor(
+  name='SimilarityReponse',
+  full_name='faiss.SimilarityReponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='similarity', full_name='faiss.SimilarityReponse.similarity', index=0,
+      number=1, type=2, cpp_type=6, label=1,
+      has_default_value=False, default_value=float(0),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='count', full_name='faiss.SimilarityReponse.count', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=367,
+  serialized_end=421,
+)
+
 _FETCHREQUEST.fields_by_name['items'].message_type = _ADDREQUEST
 DESCRIPTOR.message_types_by_name['AddRequest'] = _ADDREQUEST
 DESCRIPTOR.message_types_by_name['IdRequest'] = _IDREQUEST
@@ -302,6 +371,8 @@ DESCRIPTOR.message_types_by_name['ImportRequest'] = _IMPORTREQUEST
 DESCRIPTOR.message_types_by_name['SimpleReponse'] = _SIMPLEREPONSE
 DESCRIPTOR.message_types_by_name['SearchReponse'] = _SEARCHREPONSE
 DESCRIPTOR.message_types_by_name['Empty'] = _EMPTY
+DESCRIPTOR.message_types_by_name['SimilarityRequest'] = _SIMILARITYREQUEST
+DESCRIPTOR.message_types_by_name['SimilarityReponse'] = _SIMILARITYREPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 AddRequest = _reflection.GeneratedProtocolMessageType('AddRequest', (_message.Message,), dict(
@@ -360,6 +431,125 @@ Empty = _reflection.GeneratedProtocolMessageType('Empty', (_message.Message,), d
   ))
 _sym_db.RegisterMessage(Empty)
 
+SimilarityRequest = _reflection.GeneratedProtocolMessageType('SimilarityRequest', (_message.Message,), dict(
+  DESCRIPTOR = _SIMILARITYREQUEST,
+  __module__ = 'faissimageindex_pb2'
+  # @@protoc_insertion_point(class_scope:faiss.SimilarityRequest)
+  ))
+_sym_db.RegisterMessage(SimilarityRequest)
+
+SimilarityReponse = _reflection.GeneratedProtocolMessageType('SimilarityReponse', (_message.Message,), dict(
+  DESCRIPTOR = _SIMILARITYREPONSE,
+  __module__ = 'faissimageindex_pb2'
+  # @@protoc_insertion_point(class_scope:faiss.SimilarityReponse)
+  ))
+_sym_db.RegisterMessage(SimilarityReponse)
+
+
+
+_IMAGEINDEX = _descriptor.ServiceDescriptor(
+  name='ImageIndex',
+  full_name='faiss.ImageIndex',
+  file=DESCRIPTOR,
+  index=0,
+  options=None,
+  serialized_start=424,
+  serialized_end=960,
+  methods=[
+  _descriptor.MethodDescriptor(
+    name='Add',
+    full_name='faiss.ImageIndex.Add',
+    index=0,
+    containing_service=None,
+    input_type=_ADDREQUEST,
+    output_type=_SIMPLEREPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Remove',
+    full_name='faiss.ImageIndex.Remove',
+    index=1,
+    containing_service=None,
+    input_type=_IDREQUEST,
+    output_type=_SIMPLEREPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Search',
+    full_name='faiss.ImageIndex.Search',
+    index=2,
+    containing_service=None,
+    input_type=_SEARCHREQUEST,
+    output_type=_SEARCHREPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Fetch',
+    full_name='faiss.ImageIndex.Fetch',
+    index=3,
+    containing_service=None,
+    input_type=_FETCHREQUEST,
+    output_type=_SIMPLEREPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Info',
+    full_name='faiss.ImageIndex.Info',
+    index=4,
+    containing_service=None,
+    input_type=_EMPTY,
+    output_type=_SIMPLEREPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Save',
+    full_name='faiss.ImageIndex.Save',
+    index=5,
+    containing_service=None,
+    input_type=_EMPTY,
+    output_type=_SIMPLEREPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Train',
+    full_name='faiss.ImageIndex.Train',
+    index=6,
+    containing_service=None,
+    input_type=_EMPTY,
+    output_type=_SIMPLEREPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Import',
+    full_name='faiss.ImageIndex.Import',
+    index=7,
+    containing_service=None,
+    input_type=_IMPORTREQUEST,
+    output_type=_SIMPLEREPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Migrate',
+    full_name='faiss.ImageIndex.Migrate',
+    index=8,
+    containing_service=None,
+    input_type=_EMPTY,
+    output_type=_SIMPLEREPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Similarity',
+    full_name='faiss.ImageIndex.Similarity',
+    index=9,
+    containing_service=None,
+    input_type=_SIMILARITYREQUEST,
+    output_type=_SIMILARITYREPONSE,
+    options=None,
+  ),
+])
+_sym_db.RegisterServiceDescriptor(_IMAGEINDEX)
+
+DESCRIPTOR.services_by_name['ImageIndex'] = _IMAGEINDEX
 
 try:
   # THESE ELEMENTS WILL BE DEPRECATED.
@@ -425,6 +615,11 @@ try:
           '/faiss.ImageIndex/Migrate',
           request_serializer=Empty.SerializeToString,
           response_deserializer=SimpleReponse.FromString,
+          )
+      self.Similarity = channel.unary_unary(
+          '/faiss.ImageIndex/Similarity',
+          request_serializer=SimilarityRequest.SerializeToString,
+          response_deserializer=SimilarityReponse.FromString,
           )
 
 
@@ -495,6 +690,13 @@ try:
       context.set_details('Method not implemented!')
       raise NotImplementedError('Method not implemented!')
 
+    def Similarity(self, request, context):
+      # missing associated documentation comment in .proto file
+      pass
+      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+      context.set_details('Method not implemented!')
+      raise NotImplementedError('Method not implemented!')
+
 
   def add_ImageIndexServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -543,6 +745,11 @@ try:
             request_deserializer=Empty.FromString,
             response_serializer=SimpleReponse.SerializeToString,
         ),
+        'Similarity': grpc.unary_unary_rpc_method_handler(
+            servicer.Similarity,
+            request_deserializer=SimilarityRequest.FromString,
+            response_serializer=SimilarityReponse.SerializeToString,
+        ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
         'faiss.ImageIndex', rpc_method_handlers)
@@ -590,6 +797,10 @@ try:
       pass
       context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
     def Migrate(self, request, context):
+      # missing associated documentation comment in .proto file
+      pass
+      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
+    def Similarity(self, request, context):
       # missing associated documentation comment in .proto file
       pass
       context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
@@ -648,6 +859,11 @@ try:
       pass
       raise NotImplementedError()
     Migrate.future = None
+    def Similarity(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
+      # missing associated documentation comment in .proto file
+      pass
+      raise NotImplementedError()
+    Similarity.future = None
 
 
   def beta_create_ImageIndex_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
@@ -665,6 +881,7 @@ try:
       ('faiss.ImageIndex', 'Remove'): IdRequest.FromString,
       ('faiss.ImageIndex', 'Save'): Empty.FromString,
       ('faiss.ImageIndex', 'Search'): SearchRequest.FromString,
+      ('faiss.ImageIndex', 'Similarity'): SimilarityRequest.FromString,
       ('faiss.ImageIndex', 'Train'): Empty.FromString,
     }
     response_serializers = {
@@ -676,6 +893,7 @@ try:
       ('faiss.ImageIndex', 'Remove'): SimpleReponse.SerializeToString,
       ('faiss.ImageIndex', 'Save'): SimpleReponse.SerializeToString,
       ('faiss.ImageIndex', 'Search'): SearchReponse.SerializeToString,
+      ('faiss.ImageIndex', 'Similarity'): SimilarityReponse.SerializeToString,
       ('faiss.ImageIndex', 'Train'): SimpleReponse.SerializeToString,
     }
     method_implementations = {
@@ -687,6 +905,7 @@ try:
       ('faiss.ImageIndex', 'Remove'): face_utilities.unary_unary_inline(servicer.Remove),
       ('faiss.ImageIndex', 'Save'): face_utilities.unary_unary_inline(servicer.Save),
       ('faiss.ImageIndex', 'Search'): face_utilities.unary_unary_inline(servicer.Search),
+      ('faiss.ImageIndex', 'Similarity'): face_utilities.unary_unary_inline(servicer.Similarity),
       ('faiss.ImageIndex', 'Train'): face_utilities.unary_unary_inline(servicer.Train),
     }
     server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
@@ -708,6 +927,7 @@ try:
       ('faiss.ImageIndex', 'Remove'): IdRequest.SerializeToString,
       ('faiss.ImageIndex', 'Save'): Empty.SerializeToString,
       ('faiss.ImageIndex', 'Search'): SearchRequest.SerializeToString,
+      ('faiss.ImageIndex', 'Similarity'): SimilarityRequest.SerializeToString,
       ('faiss.ImageIndex', 'Train'): Empty.SerializeToString,
     }
     response_deserializers = {
@@ -719,6 +939,7 @@ try:
       ('faiss.ImageIndex', 'Remove'): SimpleReponse.FromString,
       ('faiss.ImageIndex', 'Save'): SimpleReponse.FromString,
       ('faiss.ImageIndex', 'Search'): SearchReponse.FromString,
+      ('faiss.ImageIndex', 'Similarity'): SimilarityReponse.FromString,
       ('faiss.ImageIndex', 'Train'): SimpleReponse.FromString,
     }
     cardinalities = {
@@ -730,6 +951,7 @@ try:
       'Remove': cardinality.Cardinality.UNARY_UNARY,
       'Save': cardinality.Cardinality.UNARY_UNARY,
       'Search': cardinality.Cardinality.UNARY_UNARY,
+      'Similarity': cardinality.Cardinality.UNARY_UNARY,
       'Train': cardinality.Cardinality.UNARY_UNARY,
     }
     stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)

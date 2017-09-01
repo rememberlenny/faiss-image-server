@@ -8,7 +8,7 @@ class FaissIndex:
         self.index = faiss.IndexFlatIP(d)
         self.index2 = faiss.IndexIDMap(self.index)
 
-    def train(self, xb, ids):
+    def train(self, xb):
         pass
 
     def replace(self, xb, ids):
@@ -42,7 +42,7 @@ class FaissIndex:
 
 class FaissTrainIndex(FaissIndex):
 
-    def train(self, xb, ids):
+    def train(self, xb):
         assert not self.index2.is_trained
         self.index2.train(xb)
         assert self.index2.is_trained
@@ -84,11 +84,6 @@ class FaissShrinkedIndex(FaissTrainIndex):
         self.quantizer = quantizer
 
         self.index2.nprobe = 32
-
-    def train(self, xb, ids):
-        #self.index2.polysemous_ordering = True
-        super(FaissShrinkedIndex, self).train(xb, ids)
-        #self.index2.polysemous_ht = 54 # the Hamming threshold
 
     def reset(self):
         self.quantizer.reset()

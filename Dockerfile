@@ -30,4 +30,7 @@ RUN mkdir nets && cd nets && \
       wget https://github.com/tensorflow/models/raw/master/slim/nets/inception_utils.py && \
       wget https://github.com/tensorflow/models/raw/master/slim/nets/inception_v4.py
 
+RUN pip install scikit-learn==0.19.0
+RUN pip install scipy==0.19.1
+
 COPY *.py /app/

@@ -12,6 +12,7 @@ service ImageIndex {
   rpc Train (Empty) returns (SimpleReponse) {}
   rpc Import (ImportRequest) returns (SimpleReponse) {}
   rpc Migrate (Empty) returns (SimpleReponse) {}
+  rpc Similarity (SimilarityRequest) returns (SimilarityReponse) {}
 }
 
 message AddRequest {
@@ -47,4 +48,13 @@ message SearchReponse {
 }
 
 message Empty {
+}
+
+message SimilarityRequest {
+  repeated int64 ids = 1;
+}
+
+message SimilarityReponse {
+  float similarity = 1;
+  int32 count = 2;
 }

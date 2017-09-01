@@ -10,6 +10,7 @@ from gevent.pool import Pool
 from gevent.threadpool import ThreadPool
 import numpy as np
 from tensorflow.python.lib.io import file_io
+from sklearn.metrics.pairwise import cosine_similarity
 
 import faissimageindex_pb2 as pb2
 import faissimageindex_pb2_grpc as pb2_grpc
@@ -85,6 +86,7 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
         pre_index.reset()
         return pb2.SimpleReponse(message='Trained')
 
+    # args: paths (list)
     def _path_to_xb(self, paths):
         d = self.embedding_service.dim()
         xb = np.ndarray(shape=(len(paths), d), dtype=np.float32)
@@ -127,7 +129,7 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
 
         logging.info("Training...")
         t0 = time.time()
-        faiss_index.train(xb, ids)
+        faiss_index.train(xb)
         logging.info("trained %.3f s", time.time() - t0)
 
         t0 = time.time()
@@ -274,3 +276,17 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
 
         return pb2.SimpleReponse(message='Not existed, %s!' % request.id)
 
+    def Similarity(self, request, context):
+        filepaths = np.array([self._get_filepath(id) for id in request.ids])
+        pool = ThreadPool(12)
+        exists = np.array(pool.map(file_io.file_exists, filepaths))
+        filepaths = filepaths[exists]
+        count = len(filepaths)
+        if count < 1:
+            return pb2.SimilarityReponse(similarity=0.0, count=count)
+
+        xb = self._path_to_xb(filepaths)
+        features = xb.shape[1]
+        center = np.average(xb, 0)
+        value = np.mean(cosine_similarity(center.reshape(-1, features), xb))
+        return pb2.SimilarityReponse(similarity=value, count=count)
