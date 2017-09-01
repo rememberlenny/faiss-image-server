@@ -278,8 +278,9 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
 
     def Similarity(self, request, context):
         filepaths = np.array([self._get_filepath(id) for id in request.ids])
-        pool = ThreadPool(12)
+        pool = ThreadPool(4)
         exists = np.array(pool.map(file_io.file_exists, filepaths))
+        gevent.wait()
         filepaths = filepaths[exists]
         count = len(filepaths)
         if count < 1:
