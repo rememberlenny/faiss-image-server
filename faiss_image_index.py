@@ -256,6 +256,8 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
 
     def Search(self, request, context):
         filepath = self._get_filepath(request.id) 
+        if not file_io.file_exists(filepath):
+            return pb2.SearchReponse()
         embedding = path_to_embedding(filepath)
         embedding = np.expand_dims(embedding, 0)
         D, I = self.faiss_index.search(embedding, request.count)
