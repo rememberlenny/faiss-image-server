@@ -21,7 +21,7 @@ elif [ $MODEL == 'inception_v3' ]; then
   fi
 fi
 
-docker run -d --name $CONTAINER_NAME -it -p $PORT:50051 -u `id -u $USER` \
+docker run -d --rm --name $CONTAINER_NAME -it -p $PORT:50051 -u `id -u $USER` \
          -v "${ROOT}/embeddings":/app/embeddings \
          -v "${ROOT}/models":/app/models \
          -v "${ROOT}/log":/app/log \

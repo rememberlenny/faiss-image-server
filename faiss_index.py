@@ -73,9 +73,8 @@ class FaissFastIndex(FaissTrainIndex):
 
 class FaissShrinkedIndex(FaissTrainIndex):
     # nlist  numCentroids
-    def __init__(self, d, nlist=100):
-        m = 8 # number of subquantizers
-
+    # m     number of subquantizers
+    def __init__(self, d, nlist=4096, m=8):
         quantizer = faiss.IndexFlatL2(d)
         self.index2 = faiss.IndexIVFPQ(quantizer, d, nlist, m, 8)
 

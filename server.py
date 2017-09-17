@@ -41,6 +41,11 @@ def serve(args):
         faiss_image_index.save()
         logging.info('server stopped')
 
+def train(args):
+    faiss_image_index = FaissImageIndex(args)
+    faiss_image_index.save()
+    faiss_image_index.export_ids()
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Faiss Image Server')
@@ -50,7 +55,9 @@ if __name__ == '__main__':
     parser.add_argument('--max_nlist', type=int, default=4096, help='max_nlist')
     parser.add_argument('--save_filepath', default='models/image.index', help='save file path')
     parser.add_argument('--model', default='inception_v4', help='Inception model version')
+    parser.add_argument('--train_only', dest='train_only', action='store_true', help='train only flag')
     parser.set_defaults(debug=False)
+    parser.set_defaults(train_only=False)
     args = parser.parse_args()
 
     if args.log:
@@ -66,4 +73,7 @@ if __name__ == '__main__':
     if args.debug:
         logging.debug('debug mode enabled')
 
-    serve(args)
+    if args.train_only:
+        train(args)
+    else:
+        serve(args)

@@ -38,7 +38,7 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
         self.embedding_service = ImageEmbeddingService(args.model)
         logging.info("embedding service loaded %.2f s" % (time.time() - t0))
 
-        if file_io.file_exists(self.save_filepath):
+        if file_io.file_exists(self.save_filepath) and not args.train_only:
             self.faiss_index = self._new_index()
             t0 = time.time()
             self.faiss_index.restore(self.save_filepath)
@@ -48,29 +48,9 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
 
     def Migrate(self, request, context):
         logging.info('Migrating...')
-        path = 'embeddings'
-        count = 0
-        pos = len(path) + 1
-
-        def move_file(filepath):
-            id = int(filepath[pos:-4])
-            to_path = self._get_filepath(id, mkdir=True)
-            return shutil.move(filepath, to_path)
-
         t0 = time.time()
-        start_t0 = t0
-
-        pool = ThreadPool(12)
-        for filepath in glob.iglob('%s/*.emb' % path):
-            pool.spawn(move_file, filepath)
-            count += 1
-            if count % 10000 == 0:
-                gevent.wait()
-                logging.info("migrating %d, %.2f s", count, time.time() - t0)
-                t0 = time.time()
-        gevent.wait()
-
-        logging.info("Migrated %d emb files to sub dir %.2f s", count, time.time() - start_t0)
+        self._sync()
+        logging.info("Migrated %.2f s", time.time() - t0)
         return pb2.SimpleReponse(message='Migrated %d' % count)
 
     def _new_index(self, nlist=100):
@@ -94,6 +74,60 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
         for i, emb in enumerate(p.imap(path_to_embedding, paths)):
             xb[i] = emb
         return xb
+
+    def export_ids(self):
+        logging.info("Id loading...")
+        t0 = time.time()
+        ids = self._get_ids()
+        total_count = len(ids)
+        logging.info("%d ids %.3f s", total_count, time.time() - t0)
+
+        logging.info("Writing...")
+        with open('models/added_ids.txt', 'w') as f:
+            for id in ids:
+                f.write("%d\n" % id)
+        logging.info("Exported.")
+
+    def _get_ids(self):
+        def path_to_id(filepath):
+            pos = filepath.rindex('/') + 1
+            return int(filepath[pos:-4])
+
+        filepaths = glob.glob('embeddings/*/*.emb')
+        return [path_to_id(x) for x in filepaths]
+
+    def _read_added_ids(self, filepath):
+        if not file_io.file_exists(filepath):
+            return []
+        with open(filepath, 'r') as f:
+            lines = f.readlines()
+        return [int(line.rstrip()) for line in lines]
+
+    def _sync(self):
+        added_ids_filepath = 'models/added_ids.txt'
+        added_ids = set(self._read_added_ids(added_ids_filepath))
+        if not added_ids:
+            return
+        target_ids = set(self._get_ids())
+
+        remove_ids = list(added_ids - target_ids)
+        add_ids = list(target_ids - added_ids)
+
+        if remove_ids:
+            ids = np.array(remove_ids, dtype=np.int64)
+            self.faiss_index.remove_ids(ids)
+
+        if add_ids:
+            for ids in chunks(add_ids, 20000):
+                t0 = time.time()
+                filepaths = [self._get_filepath(id) for id in ids]
+                xb = self._path_to_xb(filepaths)
+                ids = np.array(ids, dtype=np.int64)
+                faiss_index.add(xb, ids)
+                logging.info("%d embeddings added %.3f s", xb.shape[0], time.time() - t0)
+
+        file_io.delete_file(added_ids_filepath)
+        logging.info("Synced.")
 
     def _new_trained_index(self):
         def path_to_id(filepath):
@@ -132,9 +166,11 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
         faiss_index.train(xb)
         logging.info("trained %.3f s", time.time() - t0)
 
-        t0 = time.time()
-        faiss_index.add(xb, ids)
-        logging.info("added %.3f s", time.time() - t0)
+        step = 100000
+        for i in range(0, train_count, step):
+            t0 = time.time()
+            faiss_index.add(xb[i:i+step], ids[i:i+step])
+            logging.info("added %.3f s", time.time() - t0)
 
         if total_count > train_count:
             for filepaths in chunks(all_filepaths[train_count:], 20000):
