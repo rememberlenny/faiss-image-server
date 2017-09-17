@@ -51,7 +51,7 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
         t0 = time.time()
         self._sync()
         logging.info("Migrated %.2f s", time.time() - t0)
-        return pb2.SimpleReponse(message='Migrated %d' % count)
+        return pb2.SimpleReponse(message='Migrated.')
 
     def _new_index(self, nlist=100):
         d = self.embedding_service.dim()
