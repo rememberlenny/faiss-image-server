@@ -109,13 +109,19 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
         if not added_ids:
             return
         target_ids = set(self._get_ids())
+        logging.info('added_ids count: %d', len(added_ids))
+        logging.info('target_ids count: %d', len(target_ids))
 
         remove_ids = list(added_ids - target_ids)
         add_ids = list(target_ids - added_ids)
+        logging.info('remove_ids count: %d', len(remove_ids))
+        logging.info('add_ids count: %d', len(add_ids))
 
         if remove_ids:
-            ids = np.array(remove_ids, dtype=np.int64)
-            self.faiss_index.remove_ids(ids)
+            for ids in chunks(remove_ids, 20000):
+                ids = np.array(ids, dtype=np.int64)
+                self.faiss_index.remove_ids(ids)
+            logging.info("removed")
 
         if add_ids:
             for ids in chunks(add_ids, 20000):
@@ -123,11 +129,11 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
                 filepaths = [self._get_filepath(id) for id in ids]
                 xb = self._path_to_xb(filepaths)
                 ids = np.array(ids, dtype=np.int64)
-                faiss_index.add(xb, ids)
+                self.faiss_index.add(xb, ids)
                 logging.info("%d embeddings added %.3f s", xb.shape[0], time.time() - t0)
 
         file_io.delete_file(added_ids_filepath)
-        logging.info("Synced.")
+        logging.info("Synced. ntotal: %d", self.faiss_index.ntotal())
 
     def _new_trained_index(self):
         def path_to_id(filepath):
