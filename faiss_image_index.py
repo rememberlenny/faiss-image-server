@@ -51,7 +51,7 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
         if file_io.file_exists(args.kmeans_filepath):
             self._kmeans_index = faiss.read_index(args.kmeans_filepath)
             logging.info("kmeans_index loaded %.2f s", time.time() - t0)
-        elif args.kmeans_filepath:
+        elif args.kmeans_filepath and args.ncentroids > 0:
             logging.info("kmeans_index training..")
             self._kmeans_index = self._train_kmeans(args.ncentroids)
             faiss.write_index(self._kmeans_index, args.kmeans_filepath)
@@ -398,3 +398,10 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
         cluster_ids = list(I.flatten())
         return pb2.ClusterIdReponse(ids=ids, cluster_ids=cluster_ids)
 
+    def TrainCluster(self, request, context):
+        t0 = time.time()
+        logging.info("kmeans_index training..")
+        self._kmeans_index = self._train_kmeans(request.ncentroids)
+        faiss.write_index(self._kmeans_index, request.save_filepath)
+        logging.info("kmeans_index loaded %.2f s", time.time() - t0)
+        return pb2.SimpleReponse(message='clustered')

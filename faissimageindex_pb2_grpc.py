@@ -69,6 +69,11 @@ class ImageIndexStub(object):
         request_serializer=faissimageindex__pb2.SimilarityRequest.SerializeToString,
         response_deserializer=faissimageindex__pb2.ClusterIdReponse.FromString,
         )
+    self.TrainCluster = channel.unary_unary(
+        '/faiss.ImageIndex/TrainCluster',
+        request_serializer=faissimageindex__pb2.TrainClusterRequest.SerializeToString,
+        response_deserializer=faissimageindex__pb2.SimpleReponse.FromString,
+        )
 
 
 class ImageIndexServicer(object):
@@ -152,6 +157,13 @@ class ImageIndexServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def TrainCluster(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_ImageIndexServicer_to_server(servicer, server):
   rpc_method_handlers = {
@@ -209,6 +221,11 @@ def add_ImageIndexServicer_to_server(servicer, server):
           servicer.ClusterId,
           request_deserializer=faissimageindex__pb2.SimilarityRequest.FromString,
           response_serializer=faissimageindex__pb2.ClusterIdReponse.SerializeToString,
+      ),
+      'TrainCluster': grpc.unary_unary_rpc_method_handler(
+          servicer.TrainCluster,
+          request_deserializer=faissimageindex__pb2.TrainClusterRequest.FromString,
+          response_serializer=faissimageindex__pb2.SimpleReponse.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(

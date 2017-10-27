@@ -14,6 +14,7 @@ service ImageIndex {
   rpc Migrate (Empty) returns (SimpleReponse) {}
   rpc Similarity (SimilarityRequest) returns (SimilarityReponse) {}
   rpc ClusterId (SimilarityRequest) returns (ClusterIdReponse) {}
+  rpc TrainCluster (TrainClusterRequest) returns (SimpleReponse) {}
 }
 
 message AddRequest {
@@ -63,4 +64,9 @@ message SimilarityReponse {
 message ClusterIdReponse {
   repeated int64 ids = 1;
   repeated int32 cluster_ids = 2;
+}
+
+message TrainClusterRequest {
+  int32 ncentroids = 1;
+  string save_filepath = 2;
 }
