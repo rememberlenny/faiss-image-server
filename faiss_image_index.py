@@ -5,6 +5,7 @@ import glob
 import random
 import shutil
 
+import faiss
 import gevent
 from gevent.pool import Pool
 from gevent.threadpool import ThreadPool
@@ -45,6 +46,16 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
             logging.info("%d items restored %.2f s", self.faiss_index.ntotal(), time.time() - t0)
         else:
             self.faiss_index = self._new_trained_index()
+
+        t0 = time.time()
+        if file_io.file_exists(args.kmeans_filepath):
+            self._kmeans_index = faiss.read_index(args.kmeans_filepath)
+            logging.info("kmeans_index loaded %.2f s", time.time() - t0)
+        elif args.kmeans_filepath:
+            logging.info("kmeans_index training..")
+            self._kmeans_index = self._train_kmeans(args.ncentroids)
+            faiss.write_index(self._kmeans_index, args.kmeans_filepath)
+            logging.info("kmeans_index loaded %.2f s", time.time() - t0)
 
     def Migrate(self, request, context):
         logging.info('Migrating...')
@@ -134,6 +145,45 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
 
         file_io.delete_file(added_ids_filepath)
         logging.info("Synced. ntotal: %d", self.faiss_index.ntotal())
+
+    def _train_kmeans(self, ncentroids):
+        def path_to_id(filepath):
+            pos = filepath.rindex('/') + 1
+            return int(filepath[pos:-4])
+
+        logging.info("File loading...")
+        t0 = time.time()
+        all_filepaths = glob.glob('embeddings/*/*.emb')
+        total_count = len(all_filepaths)
+        logging.info("%d files %.3f s", total_count, time.time() - t0)
+
+        train_count = min(total_count, self.max_train_count)
+        if train_count <= 0:
+            return
+
+        logging.info("shuffling...")
+        random.shuffle(all_filepaths)
+
+        logging.info("embedings loading...")
+        filepaths = all_filepaths[:train_count]
+        t0 = time.time()
+        xb = self._path_to_xb(filepaths)
+        ids = np.array(list(map(path_to_id, filepaths)), dtype=np.int64)
+        logging.info("%d embeddings loaded %.3f s", xb.shape[0], time.time() - t0)
+
+        niter = 20
+        d = xb.shape[1]
+        verbose = True
+        kmeans = faiss.Kmeans(d, ncentroids, niter, verbose)
+        logging.info("training...")
+        t0 = time.time()
+        kmeans.train(xb)
+        logging.info("trained %.2f s", time.time() - t0)
+
+        D, I = self.faiss_index.search(kmeans.centroids, 1)
+        print("centroid ids")
+        print(I)
+        return kmeans.index
 
     def _new_trained_index(self):
         def path_to_id(filepath):
@@ -333,3 +383,18 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
         center = np.average(xb, 0)
         value = np.mean(cosine_similarity(center.reshape(-1, features), xb))
         return pb2.SimilarityReponse(similarity=value, count=count)
+
+    def ClusterId(self, request, context):
+        filepaths = np.array([self._get_filepath(id) for id in request.ids])
+        exists = np.array([file_io.file_exists(x) for x in filepaths])
+        filepaths = filepaths[exists]
+        count = len(filepaths)
+        if count < 1:
+            return pb2.ClusterIdReponse(ids=[], cluster_ids=[])
+        ids = np.array(request.ids)[exists]
+
+        xb = self._path_to_xb(filepaths)
+        D, I = self._kmeans_index.search(xb, 1)
+        cluster_ids = list(I.flatten())
+        return pb2.ClusterIdReponse(ids=ids, cluster_ids=cluster_ids)
+

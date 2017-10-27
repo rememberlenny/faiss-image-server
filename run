@@ -28,5 +28,6 @@ docker run -d --rm --name $CONTAINER_NAME -it -p $PORT:50051 -u `id -u $USER` \
          daangn/faiss-image-server server.py --log "log/${CONTAINER_NAME}.log" \
            --train_count $TRAIN_COUNT \
            --save_filepath models/${CONTAINER_NAME}.index \
+           --kmeans_filepath models/${CONTAINER_NAME}.kmeans.index \
            --model $MODEL \
            --debug
