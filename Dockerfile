@@ -26,9 +26,9 @@ HEALTHCHECK --interval=3s --timeout=2s \
   CMD ls /tmp/status || exit 1
 
 RUN mkdir nets && cd nets && \
-      wget https://github.com/tensorflow/models/raw/master/slim/nets/__init__.py && \
-      wget https://github.com/tensorflow/models/raw/master/slim/nets/inception_utils.py && \
-      wget https://github.com/tensorflow/models/raw/master/slim/nets/inception_v4.py
+      wget https://github.com/tensorflow/models/raw/master/research/slim/nets/__init__.py && \
+      wget https://github.com/tensorflow/models/raw/master/research/slim/nets/inception_utils.py && \
+      wget https://github.com/tensorflow/models/raw/master/research/slim/nets/inception_v4.py
 
 RUN pip install scikit-learn==0.19.0
 RUN pip install scipy==0.19.1
