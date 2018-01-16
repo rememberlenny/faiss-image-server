@@ -48,11 +48,11 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
             self.faiss_index = self._new_trained_index()
 
         t0 = time.time()
-        if file_io.file_exists(args.kmeans_filepath):
+        if args.kmeans_filepath and file_io.file_exists(args.kmeans_filepath):
             self._kmeans_index = faiss.read_index(args.kmeans_filepath)
             logging.info("kmeans_index loaded %.2f s", time.time() - t0)
         elif args.kmeans_filepath and args.ncentroids > 0:
-            logging.info("kmeans_index training..")
+            logging.info("kmeans_index training.. ncentroids: %d", args.ncentroids)
             self._kmeans_index = self._train_kmeans(args.ncentroids)
             faiss.write_index(self._kmeans_index, args.kmeans_filepath)
             logging.info("kmeans_index loaded %.2f s", time.time() - t0)
@@ -76,6 +76,25 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
         self.faiss_index = self._new_trained_index()
         pre_index.reset()
         return pb2.SimpleReponse(message='Trained')
+
+    def Reset(self, request, context):
+        d = self.embedding_service.dim()
+        embedding = np.zeros([1, d], dtype=np.float32)
+        count = 0
+        while True:
+            D, I = self.faiss_index.search(embedding, 100000)
+            if I[0][0] == -1:
+                break
+            self.faiss_index.remove_ids(I[0])
+            count += len(I[0])
+            logging.info('removed %d ids', count)
+
+        all_filepaths = glob.glob('embeddings/*/*.emb')
+        files_count = len(all_filepaths)
+        logging.info('emb files count: %d', files_count)
+        p = Pool(12)
+        p.map(file_io.delete_file, all_filepaths)
+        return pb2.SimpleReponse(message=('Reset and deleted %d emb files' % files_count))
 
     # args: paths (list)
     def _path_to_xb(self, paths):
@@ -158,7 +177,7 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
         logging.info("%d files %.3f s", total_count, time.time() - t0)
 
         train_count = min(total_count, self.max_train_count)
-        if train_count <= 0:
+        if train_count <= ncentroids:
             return
 
         logging.info("shuffling...")

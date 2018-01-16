@@ -15,6 +15,7 @@ service ImageIndex {
   rpc Similarity (SimilarityRequest) returns (SimilarityReponse) {}
   rpc ClusterId (SimilarityRequest) returns (ClusterIdReponse) {}
   rpc TrainCluster (TrainClusterRequest) returns (SimpleReponse) {}
+  rpc Reset (Empty) returns (SimpleReponse) {}
 }
 
 message AddRequest {

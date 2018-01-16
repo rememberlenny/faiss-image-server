@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='faissimageindex.proto',
   package='faiss',
   syntax='proto3',
-  serialized_pb=_b('\n\x15\x66\x61issimageindex.proto\x12\x05\x66\x61iss\"<\n\nAddRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0b\n\x03url\x18\x02 \x01(\t\x12\x15\n\rcreated_at_ts\x18\x03 \x01(\x03\"\x17\n\tIdRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"*\n\rSearchRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05\x63ount\x18\x02 \x01(\x05\"0\n\x0c\x46\x65tchRequest\x12 \n\x05items\x18\x01 \x03(\x0b\x32\x11.faiss.AddRequest\"\x1d\n\rImportRequest\x12\x0c\n\x04path\x18\x01 \x01(\t\" \n\rSimpleReponse\x12\x0f\n\x07message\x18\x01 \x01(\t\",\n\rSearchReponse\x12\x0b\n\x03ids\x18\x01 \x03(\x03\x12\x0e\n\x06scores\x18\x02 \x03(\x02\"\x07\n\x05\x45mpty\" \n\x11SimilarityRequest\x12\x0b\n\x03ids\x18\x01 \x03(\x03\"6\n\x11SimilarityReponse\x12\x12\n\nsimilarity\x18\x01 \x01(\x02\x12\r\n\x05\x63ount\x18\x02 \x01(\x05\"4\n\x10\x43lusterIdReponse\x12\x0b\n\x03ids\x18\x01 \x03(\x03\x12\x13\n\x0b\x63luster_ids\x18\x02 \x03(\x05\"@\n\x13TrainClusterRequest\x12\x12\n\nncentroids\x18\x01 \x01(\x05\x12\x15\n\rsave_filepath\x18\x02 \x01(\t2\x9e\x05\n\nImageIndex\x12\x30\n\x03\x41\x64\x64\x12\x11.faiss.AddRequest\x1a\x14.faiss.SimpleReponse\"\x00\x12\x32\n\x06Remove\x12\x10.faiss.IdRequest\x1a\x14.faiss.SimpleReponse\"\x00\x12\x36\n\x06Search\x12\x14.faiss.SearchRequest\x1a\x14.faiss.SearchReponse\"\x00\x12\x34\n\x05\x46\x65tch\x12\x13.faiss.FetchRequest\x1a\x14.faiss.SimpleReponse\"\x00\x12,\n\x04Info\x12\x0c.faiss.Empty\x1a\x14.faiss.SimpleReponse\"\x00\x12,\n\x04Save\x12\x0c.faiss.Empty\x1a\x14.faiss.SimpleReponse\"\x00\x12-\n\x05Train\x12\x0c.faiss.Empty\x1a\x14.faiss.SimpleReponse\"\x00\x12\x36\n\x06Import\x12\x14.faiss.ImportRequest\x1a\x14.faiss.SimpleReponse\"\x00\x12/\n\x07Migrate\x12\x0c.faiss.Empty\x1a\x14.faiss.SimpleReponse\"\x00\x12\x42\n\nSimilarity\x12\x18.faiss.SimilarityRequest\x1a\x18.faiss.SimilarityReponse\"\x00\x12@\n\tClusterId\x12\x18.faiss.SimilarityRequest\x1a\x17.faiss.ClusterIdReponse\"\x00\x12\x42\n\x0cTrainCluster\x12\x1a.faiss.TrainClusterRequest\x1a\x14.faiss.SimpleReponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x15\x66\x61issimageindex.proto\x12\x05\x66\x61iss\"<\n\nAddRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0b\n\x03url\x18\x02 \x01(\t\x12\x15\n\rcreated_at_ts\x18\x03 \x01(\x03\"\x17\n\tIdRequest\x12\n\n\x02id\x18\x01 \x01(\x03\"*\n\rSearchRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05\x63ount\x18\x02 \x01(\x05\"0\n\x0c\x46\x65tchRequest\x12 \n\x05items\x18\x01 \x03(\x0b\x32\x11.faiss.AddRequest\"\x1d\n\rImportRequest\x12\x0c\n\x04path\x18\x01 \x01(\t\" \n\rSimpleReponse\x12\x0f\n\x07message\x18\x01 \x01(\t\",\n\rSearchReponse\x12\x0b\n\x03ids\x18\x01 \x03(\x03\x12\x0e\n\x06scores\x18\x02 \x03(\x02\"\x07\n\x05\x45mpty\" \n\x11SimilarityRequest\x12\x0b\n\x03ids\x18\x01 \x03(\x03\"6\n\x11SimilarityReponse\x12\x12\n\nsimilarity\x18\x01 \x01(\x02\x12\r\n\x05\x63ount\x18\x02 \x01(\x05\"4\n\x10\x43lusterIdReponse\x12\x0b\n\x03ids\x18\x01 \x03(\x03\x12\x13\n\x0b\x63luster_ids\x18\x02 \x03(\x05\"@\n\x13TrainClusterRequest\x12\x12\n\nncentroids\x18\x01 \x01(\x05\x12\x15\n\rsave_filepath\x18\x02 \x01(\t2\xcd\x05\n\nImageIndex\x12\x30\n\x03\x41\x64\x64\x12\x11.faiss.AddRequest\x1a\x14.faiss.SimpleReponse\"\x00\x12\x32\n\x06Remove\x12\x10.faiss.IdRequest\x1a\x14.faiss.SimpleReponse\"\x00\x12\x36\n\x06Search\x12\x14.faiss.SearchRequest\x1a\x14.faiss.SearchReponse\"\x00\x12\x34\n\x05\x46\x65tch\x12\x13.faiss.FetchRequest\x1a\x14.faiss.SimpleReponse\"\x00\x12,\n\x04Info\x12\x0c.faiss.Empty\x1a\x14.faiss.SimpleReponse\"\x00\x12,\n\x04Save\x12\x0c.faiss.Empty\x1a\x14.faiss.SimpleReponse\"\x00\x12-\n\x05Train\x12\x0c.faiss.Empty\x1a\x14.faiss.SimpleReponse\"\x00\x12\x36\n\x06Import\x12\x14.faiss.ImportRequest\x1a\x14.faiss.SimpleReponse\"\x00\x12/\n\x07Migrate\x12\x0c.faiss.Empty\x1a\x14.faiss.SimpleReponse\"\x00\x12\x42\n\nSimilarity\x12\x18.faiss.SimilarityRequest\x1a\x18.faiss.SimilarityReponse\"\x00\x12@\n\tClusterId\x12\x18.faiss.SimilarityRequest\x1a\x17.faiss.ClusterIdReponse\"\x00\x12\x42\n\x0cTrainCluster\x12\x1a.faiss.TrainClusterRequest\x1a\x14.faiss.SimpleReponse\"\x00\x12-\n\x05Reset\x12\x0c.faiss.Empty\x1a\x14.faiss.SimpleReponse\"\x00\x62\x06proto3')
 )
 
 
@@ -538,129 +538,6 @@ TrainClusterRequest = _reflection.GeneratedProtocolMessageType('TrainClusterRequ
 _sym_db.RegisterMessage(TrainClusterRequest)
 
 
-
-_IMAGEINDEX = _descriptor.ServiceDescriptor(
-  name='ImageIndex',
-  full_name='faiss.ImageIndex',
-  file=DESCRIPTOR,
-  index=0,
-  options=None,
-  serialized_start=544,
-  serialized_end=1214,
-  methods=[
-  _descriptor.MethodDescriptor(
-    name='Add',
-    full_name='faiss.ImageIndex.Add',
-    index=0,
-    containing_service=None,
-    input_type=_ADDREQUEST,
-    output_type=_SIMPLEREPONSE,
-    options=None,
-  ),
-  _descriptor.MethodDescriptor(
-    name='Remove',
-    full_name='faiss.ImageIndex.Remove',
-    index=1,
-    containing_service=None,
-    input_type=_IDREQUEST,
-    output_type=_SIMPLEREPONSE,
-    options=None,
-  ),
-  _descriptor.MethodDescriptor(
-    name='Search',
-    full_name='faiss.ImageIndex.Search',
-    index=2,
-    containing_service=None,
-    input_type=_SEARCHREQUEST,
-    output_type=_SEARCHREPONSE,
-    options=None,
-  ),
-  _descriptor.MethodDescriptor(
-    name='Fetch',
-    full_name='faiss.ImageIndex.Fetch',
-    index=3,
-    containing_service=None,
-    input_type=_FETCHREQUEST,
-    output_type=_SIMPLEREPONSE,
-    options=None,
-  ),
-  _descriptor.MethodDescriptor(
-    name='Info',
-    full_name='faiss.ImageIndex.Info',
-    index=4,
-    containing_service=None,
-    input_type=_EMPTY,
-    output_type=_SIMPLEREPONSE,
-    options=None,
-  ),
-  _descriptor.MethodDescriptor(
-    name='Save',
-    full_name='faiss.ImageIndex.Save',
-    index=5,
-    containing_service=None,
-    input_type=_EMPTY,
-    output_type=_SIMPLEREPONSE,
-    options=None,
-  ),
-  _descriptor.MethodDescriptor(
-    name='Train',
-    full_name='faiss.ImageIndex.Train',
-    index=6,
-    containing_service=None,
-    input_type=_EMPTY,
-    output_type=_SIMPLEREPONSE,
-    options=None,
-  ),
-  _descriptor.MethodDescriptor(
-    name='Import',
-    full_name='faiss.ImageIndex.Import',
-    index=7,
-    containing_service=None,
-    input_type=_IMPORTREQUEST,
-    output_type=_SIMPLEREPONSE,
-    options=None,
-  ),
-  _descriptor.MethodDescriptor(
-    name='Migrate',
-    full_name='faiss.ImageIndex.Migrate',
-    index=8,
-    containing_service=None,
-    input_type=_EMPTY,
-    output_type=_SIMPLEREPONSE,
-    options=None,
-  ),
-  _descriptor.MethodDescriptor(
-    name='Similarity',
-    full_name='faiss.ImageIndex.Similarity',
-    index=9,
-    containing_service=None,
-    input_type=_SIMILARITYREQUEST,
-    output_type=_SIMILARITYREPONSE,
-    options=None,
-  ),
-  _descriptor.MethodDescriptor(
-    name='ClusterId',
-    full_name='faiss.ImageIndex.ClusterId',
-    index=10,
-    containing_service=None,
-    input_type=_SIMILARITYREQUEST,
-    output_type=_CLUSTERIDREPONSE,
-    options=None,
-  ),
-  _descriptor.MethodDescriptor(
-    name='TrainCluster',
-    full_name='faiss.ImageIndex.TrainCluster',
-    index=11,
-    containing_service=None,
-    input_type=_TRAINCLUSTERREQUEST,
-    output_type=_SIMPLEREPONSE,
-    options=None,
-  ),
-])
-_sym_db.RegisterServiceDescriptor(_IMAGEINDEX)
-
-DESCRIPTOR.services_by_name['ImageIndex'] = _IMAGEINDEX
-
 try:
   # THESE ELEMENTS WILL BE DEPRECATED.
   # Please use the generated *_pb2_grpc.py files instead.
@@ -739,6 +616,11 @@ try:
       self.TrainCluster = channel.unary_unary(
           '/faiss.ImageIndex/TrainCluster',
           request_serializer=TrainClusterRequest.SerializeToString,
+          response_deserializer=SimpleReponse.FromString,
+          )
+      self.Reset = channel.unary_unary(
+          '/faiss.ImageIndex/Reset',
+          request_serializer=Empty.SerializeToString,
           response_deserializer=SimpleReponse.FromString,
           )
 
@@ -831,6 +713,13 @@ try:
       context.set_details('Method not implemented!')
       raise NotImplementedError('Method not implemented!')
 
+    def Reset(self, request, context):
+      # missing associated documentation comment in .proto file
+      pass
+      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+      context.set_details('Method not implemented!')
+      raise NotImplementedError('Method not implemented!')
+
 
   def add_ImageIndexServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -894,6 +783,11 @@ try:
             request_deserializer=TrainClusterRequest.FromString,
             response_serializer=SimpleReponse.SerializeToString,
         ),
+        'Reset': grpc.unary_unary_rpc_method_handler(
+            servicer.Reset,
+            request_deserializer=Empty.FromString,
+            response_serializer=SimpleReponse.SerializeToString,
+        ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
         'faiss.ImageIndex', rpc_method_handlers)
@@ -953,6 +847,10 @@ try:
       pass
       context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
     def TrainCluster(self, request, context):
+      # missing associated documentation comment in .proto file
+      pass
+      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
+    def Reset(self, request, context):
       # missing associated documentation comment in .proto file
       pass
       context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
@@ -1026,6 +924,11 @@ try:
       pass
       raise NotImplementedError()
     TrainCluster.future = None
+    def Reset(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
+      # missing associated documentation comment in .proto file
+      pass
+      raise NotImplementedError()
+    Reset.future = None
 
 
   def beta_create_ImageIndex_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
@@ -1042,6 +945,7 @@ try:
       ('faiss.ImageIndex', 'Info'): Empty.FromString,
       ('faiss.ImageIndex', 'Migrate'): Empty.FromString,
       ('faiss.ImageIndex', 'Remove'): IdRequest.FromString,
+      ('faiss.ImageIndex', 'Reset'): Empty.FromString,
       ('faiss.ImageIndex', 'Save'): Empty.FromString,
       ('faiss.ImageIndex', 'Search'): SearchRequest.FromString,
       ('faiss.ImageIndex', 'Similarity'): SimilarityRequest.FromString,
@@ -1056,6 +960,7 @@ try:
       ('faiss.ImageIndex', 'Info'): SimpleReponse.SerializeToString,
       ('faiss.ImageIndex', 'Migrate'): SimpleReponse.SerializeToString,
       ('faiss.ImageIndex', 'Remove'): SimpleReponse.SerializeToString,
+      ('faiss.ImageIndex', 'Reset'): SimpleReponse.SerializeToString,
       ('faiss.ImageIndex', 'Save'): SimpleReponse.SerializeToString,
       ('faiss.ImageIndex', 'Search'): SearchReponse.SerializeToString,
       ('faiss.ImageIndex', 'Similarity'): SimilarityReponse.SerializeToString,
@@ -1070,6 +975,7 @@ try:
       ('faiss.ImageIndex', 'Info'): face_utilities.unary_unary_inline(servicer.Info),
       ('faiss.ImageIndex', 'Migrate'): face_utilities.unary_unary_inline(servicer.Migrate),
       ('faiss.ImageIndex', 'Remove'): face_utilities.unary_unary_inline(servicer.Remove),
+      ('faiss.ImageIndex', 'Reset'): face_utilities.unary_unary_inline(servicer.Reset),
       ('faiss.ImageIndex', 'Save'): face_utilities.unary_unary_inline(servicer.Save),
       ('faiss.ImageIndex', 'Search'): face_utilities.unary_unary_inline(servicer.Search),
       ('faiss.ImageIndex', 'Similarity'): face_utilities.unary_unary_inline(servicer.Similarity),
@@ -1094,6 +1000,7 @@ try:
       ('faiss.ImageIndex', 'Info'): Empty.SerializeToString,
       ('faiss.ImageIndex', 'Migrate'): Empty.SerializeToString,
       ('faiss.ImageIndex', 'Remove'): IdRequest.SerializeToString,
+      ('faiss.ImageIndex', 'Reset'): Empty.SerializeToString,
       ('faiss.ImageIndex', 'Save'): Empty.SerializeToString,
       ('faiss.ImageIndex', 'Search'): SearchRequest.SerializeToString,
       ('faiss.ImageIndex', 'Similarity'): SimilarityRequest.SerializeToString,
@@ -1108,6 +1015,7 @@ try:
       ('faiss.ImageIndex', 'Info'): SimpleReponse.FromString,
       ('faiss.ImageIndex', 'Migrate'): SimpleReponse.FromString,
       ('faiss.ImageIndex', 'Remove'): SimpleReponse.FromString,
+      ('faiss.ImageIndex', 'Reset'): SimpleReponse.FromString,
       ('faiss.ImageIndex', 'Save'): SimpleReponse.FromString,
       ('faiss.ImageIndex', 'Search'): SearchReponse.FromString,
       ('faiss.ImageIndex', 'Similarity'): SimilarityReponse.FromString,
@@ -1122,6 +1030,7 @@ try:
       'Info': cardinality.Cardinality.UNARY_UNARY,
       'Migrate': cardinality.Cardinality.UNARY_UNARY,
       'Remove': cardinality.Cardinality.UNARY_UNARY,
+      'Reset': cardinality.Cardinality.UNARY_UNARY,
       'Save': cardinality.Cardinality.UNARY_UNARY,
       'Search': cardinality.Cardinality.UNARY_UNARY,
       'Similarity': cardinality.Cardinality.UNARY_UNARY,
