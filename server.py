@@ -15,7 +15,7 @@ _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
 def serve(args):
     logging.info('server loading')
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=args.max_workers))
     faiss_image_index = FaissImageIndex(args)
     pb2_grpc.add_ImageIndexServicer_to_server(faiss_image_index, server)
     server.add_insecure_port('[::]:50051')
@@ -58,6 +58,7 @@ if __name__ == '__main__':
     parser.add_argument('--train_only', dest='train_only', action='store_true', help='train only flag')
     parser.add_argument('--kmeans_filepath', help='save file path')
     parser.add_argument('--ncentroids', type=int, default=100, help='n centroids')
+    parser.add_argument('--max_workers', type=int, default=10, help='Max workers count')
     parser.add_argument('--remote_embedding_host', type=str, help='Remote image embedding server host')
     parser.set_defaults(debug=False)
     parser.set_defaults(train_only=False)
