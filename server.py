@@ -58,6 +58,7 @@ if __name__ == '__main__':
     parser.add_argument('--train_only', dest='train_only', action='store_true', help='train only flag')
     parser.add_argument('--kmeans_filepath', help='save file path')
     parser.add_argument('--ncentroids', type=int, default=100, help='n centroids')
+    parser.add_argument('--remote_embedding_host', type=str, help='Remote image embedding server host')
     parser.set_defaults(debug=False)
     parser.set_defaults(train_only=False)
     args = parser.parse_args()

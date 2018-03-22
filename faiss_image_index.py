@@ -17,6 +17,7 @@ import faissimageindex_pb2 as pb2
 import faissimageindex_pb2_grpc as pb2_grpc
 
 from embeddings import ImageEmbeddingService
+from remote_embeddings import ImageEmbeddingService as RemoteImageEmbeddingService
 from faiss_index import FaissIndex, FaissShrinkedIndex
 
 def chunks(l, n):
@@ -36,8 +37,12 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
         self.max_train_count = args.train_count
         self._max_nlist = args.max_nlist
         t0 = time.time()
-        self.embedding_service = ImageEmbeddingService(args.model)
-        logging.info("embedding service loaded %.2f s" % (time.time() - t0))
+        if args.remote_embedding_host:
+            self.embedding_service = RemoteImageEmbeddingService(args.remote_embedding_host)
+            logging.info("remote embedding service loaded, %s" % args.remote_embedding_host)
+        else:
+            self.embedding_service = ImageEmbeddingService(args.model)
+            logging.info("embedding service loaded %.2f s" % (time.time() - t0))
 
         if file_io.file_exists(self.save_filepath) and not args.train_only:
             self.faiss_index = self._new_index()
