@@ -38,7 +38,8 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
         self._max_nlist = args.max_nlist
         t0 = time.time()
         if args.remote_embedding_host:
-            self.embedding_service = RemoteImageEmbeddingService(args.remote_embedding_host)
+            self.embedding_service = RemoteImageEmbeddingService(args.remote_embedding_host,
+                    load_balancing=args.lb)
             logging.info("remote embedding service loaded, %s" % args.remote_embedding_host)
         else:
             self.embedding_service = ImageEmbeddingService(args.model)

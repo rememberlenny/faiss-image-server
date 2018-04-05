@@ -5,8 +5,11 @@ import image_embedding_pb2 as pb2
 import image_embedding_pb2_grpc as pb2_grpc
 
 class ImageEmbeddingService:
-    def __init__(self, host):
-        channel = grpc.insecure_channel(host)
+    def __init__(self, host, load_balancing=False):
+        if load_balancing:
+            channel = grpc.insecure_channel(host, [("grpc.lb_policy_name", "round_robin")])
+        else:
+            channel = grpc.insecure_channel(host)
         stub = pb2_grpc.ImageEmbeddingStub(channel)
         response = stub.Dimension(pb2.Empty())
         self._dim = response.dim
