@@ -21,13 +21,15 @@ elif [ $MODEL == 'inception_v3' ]; then
   fi
 fi
 
-docker run -d --rm --name $CONTAINER_NAME -it -p $PORT:50051 -u `id -u $USER` \
+docker run -d --name $CONTAINER_NAME -it -p $PORT:50051 -u `id -u $USER` \
          -v "${ROOT}/embeddings":/app/embeddings \
          -v "${ROOT}/models":/app/models \
          -v "${ROOT}/log":/app/log \
+         --network daangn-net \
          daangn/faiss-image-server server.py --log "log/${CONTAINER_NAME}.log" \
            --train_count $TRAIN_COUNT \
            --save_filepath models/${CONTAINER_NAME}.index \
            --kmeans_filepath models/${CONTAINER_NAME}.kmeans.index \
+           --remote_embedding_host "image-embedding-server:50051" \
            --model $MODEL \
            --debug

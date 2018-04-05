@@ -16,6 +16,11 @@ class ImageEmbeddingService:
         return self._dim
 
     def get_embedding(self, url):
-        response = self._stub.Embedding(pb2.EmbeddingRequest(url=url))
+        try:
+            response = self._stub.Embedding(pb2.EmbeddingRequest(url=url))
+        except grpc.RpcError as e:
+            if 'Forbidden' in str(e):
+                return None
+            raise e
         return np.array(response.embedding, dtype=np.float32)
 
