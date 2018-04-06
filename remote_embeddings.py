@@ -20,7 +20,7 @@ class ImageEmbeddingService:
 
     def get_embedding(self, url):
         try:
-            response = self._stub.Embedding(pb2.EmbeddingRequest(url=url))
+            response = self._stub.Embedding(pb2.EmbeddingRequest(url=url), timeout=100)
         except grpc.RpcError as e:
             if 'Forbidden' in str(e):
                 return None
