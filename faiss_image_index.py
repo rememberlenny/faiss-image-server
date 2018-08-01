@@ -5,6 +5,8 @@ import glob
 import random
 import shutil
 
+import re
+import boto3
 import faiss
 import gevent
 from gevent.pool import Pool
@@ -20,6 +22,13 @@ from embeddings import ImageEmbeddingService
 from remote_embeddings import ImageEmbeddingService as RemoteImageEmbeddingService
 from faiss_index import FaissIndex, FaissShrinkedIndex
 
+# Disable debug logs of the boto lib
+logging.getLogger('botocore').setLevel(logging.INFO)
+logging.getLogger('boto3').setLevel(logging.INFO)
+logging.getLogger('s3transfer').setLevel(logging.INFO)
+
+s3 = boto3.resource('s3')
+
 def chunks(l, n):
     """Yield successive n-sized chunks from l."""
     for i in range(0, len(l), n):
@@ -29,11 +38,30 @@ def path_to_embedding(filepath):
     return np.fromstring(file_io.read_file_to_string(filepath, True),
             dtype=np.float32)
 
+def url_to_s3_info(url):
+    m = re.match('s3://([^/]+)/(.+)', url)
+    bucket_name = m.group(1)
+    key = m.group(2)
+    return (bucket_name, key)
+
 
 class FaissImageIndex(pb2_grpc.ImageIndexServicer):
 
     def __init__(self, args):
-        self.save_filepath = args.save_filepath
+        if args.save_filepath.startswith('s3://'):
+            bucket_name, key = url_to_s3_info(args.save_filepath)
+            self.remote_save_info = (bucket_name, key)
+            self.save_filepath = '/tmp/server.index'
+            s3.Bucket(bucket_name).download_file(key, self.save_filepath)
+        else:
+            self.remote_save_info = None
+            self.save_filepath = args.save_filepath
+
+        if args.remote_embedding_path:
+            self.remote_embedding_info = url_to_s3_info(args.remote_embedding_path)
+        else:
+            self.remote_embedding_info = None
+
         self.max_train_count = args.train_count
         self._max_nlist = args.max_nlist
         t0 = time.time()
@@ -271,6 +299,9 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
         t0 = time.time()
         self.faiss_index.save(self.save_filepath)
         logging.info("index saved to %s, %.3f s", self.save_filepath, time.time() - t0)
+        if self.remote_save_info:
+            bucket_name, key = self.remote_save_info
+            s3.meta.client.upload_file(self.save_filepath, bucket_name, key)
 
     def Add(self, request, context):
         logging.debug('add - id: %d', request.id)
@@ -344,7 +375,14 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
             return
         logging.debug("embedding fetched %d, %.3f s", request.id, time.time() - t0)
         filepath = self._get_filepath(request.id, mkdir=True)
-        file_io.write_string_to_file(filepath, embedding.tostring())
+
+        if remote_embedding_info:
+            bucket_name, key = remote_embedding_info
+            key = "%s/%s" % (key, filepath)
+            s3.meta.client.put_object(Bucket=bucket_name, Key=key, Body=embedding.tostring())
+        else:
+            file_io.write_string_to_file(filepath, embedding.tostring())
+
         return embedding
 
     def Fetch(self, request, context):
@@ -366,16 +404,25 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
         return pb2.SimpleReponse(message='Fetched, %d of %d!' % (fetched_count, total_count))
 
     def _get_filepath(self, id, mkdir=False):
-        path = 'embeddings/%d' % int(id / 10000)
+        if self.remote_embedding_info:
+            path = '%d' % int(id / 10000)
+        else:
+            path = 'embeddings/%d' % int(id / 10000)
         if mkdir and not file_io.file_exists(path):
             file_io.create_dir(path)
         return '%s/%d.emb' % (path, id)
 
     def Search(self, request, context):
-        filepath = self._get_filepath(request.id) 
-        if not file_io.file_exists(filepath):
-            return pb2.SearchReponse()
-        embedding = path_to_embedding(filepath)
+        filepath = self._get_filepath(request.id)
+        if remote_embedding_info:
+            bucket_name, key = remote_embedding_info
+            key = "%s/%s" % (key, filepath)
+            res = s3.meta.client.get_object(Bucket=bucket_name, Key=key)
+            embedding = np.frombuffer(res['Body'].read(), dtype=np.float32)
+        else:
+            if not file_io.file_exists(filepath):
+                return pb2.SearchReponse()
+            embedding = path_to_embedding(filepath)
         embedding = np.expand_dims(embedding, 0)
         D, I = self.faiss_index.search(embedding, request.count)
         return pb2.SearchReponse(ids=I[0], scores=D[0])

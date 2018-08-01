@@ -62,6 +62,7 @@ if __name__ == '__main__':
     parser.add_argument('--remote_embedding_host', type=str, help='Remote image embedding server host')
     parser.add_argument('--lb', action='store_true', help='Use load balancing')
     parser.add_argument('--remote_embedding_timeout', type=int, default=10, help='Timeout to request remote embeddings')
+    parser.add_argument('--remote_embedding_path', help='remote embedding path')
     parser.set_defaults(debug=False)
     parser.set_defaults(train_only=False)
     parser.set_defaults(lb=False)

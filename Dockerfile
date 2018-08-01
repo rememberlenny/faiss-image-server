@@ -32,5 +32,6 @@ RUN mkdir nets && cd nets && \
 
 RUN pip install scikit-learn==0.19.0
 RUN pip install scipy==0.19.1
+RUN pip install boto3
 
 COPY *.py /app/
