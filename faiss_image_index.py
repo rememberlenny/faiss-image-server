@@ -6,7 +6,6 @@ import random
 import shutil
 
 import re
-import boto3
 import faiss
 import gevent
 from gevent.pool import Pool
@@ -14,6 +13,9 @@ from gevent.threadpool import ThreadPool
 import numpy as np
 from tensorflow.python.lib.io import file_io
 from sklearn.metrics.pairwise import cosine_similarity
+
+import boto3
+import botocore
 
 import faissimageindex_pb2 as pb2
 import faissimageindex_pb2_grpc as pb2_grpc
@@ -28,6 +30,8 @@ logging.getLogger('boto3').setLevel(logging.INFO)
 logging.getLogger('s3transfer').setLevel(logging.INFO)
 
 s3 = boto3.resource('s3')
+session = botocore.session.get_session()
+client = session.create_client('s3')
 
 def chunks(l, n):
     """Yield successive n-sized chunks from l."""
@@ -302,6 +306,7 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
         if self.remote_save_info:
             bucket_name, key = self.remote_save_info
             s3.meta.client.upload_file(self.save_filepath, bucket_name, key)
+            logging.info('index file uploaded to s3://%s/%s' % (bucket_name, key))
 
     def Add(self, request, context):
         logging.debug('add - id: %d', request.id)
@@ -376,10 +381,10 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
         logging.debug("embedding fetched %d, %.3f s", request.id, time.time() - t0)
         filepath = self._get_filepath(request.id, mkdir=True)
 
-        if remote_embedding_info:
-            bucket_name, key = remote_embedding_info
+        if self.remote_embedding_info:
+            bucket_name, key = self.remote_embedding_info
             key = "%s/%s" % (key, filepath)
-            s3.meta.client.put_object(Bucket=bucket_name, Key=key, Body=embedding.tostring())
+            client.put_object(Bucket=bucket_name, Key=key, Body=embedding.tostring())
         else:
             file_io.write_string_to_file(filepath, embedding.tostring())
 
@@ -414,10 +419,14 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
 
     def Search(self, request, context):
         filepath = self._get_filepath(request.id)
-        if remote_embedding_info:
-            bucket_name, key = remote_embedding_info
+        if self.remote_embedding_info:
+            bucket_name, key = self.remote_embedding_info
             key = "%s/%s" % (key, filepath)
-            res = s3.meta.client.get_object(Bucket=bucket_name, Key=key)
+            try:
+                res = client.get_object(Bucket=bucket_name, Key=key)
+            except client.exceptions.NoSuchKey:
+                logging.debug('no key: %s' % key)
+                return pb2.SearchReponse()
             embedding = np.frombuffer(res['Body'].read(), dtype=np.float32)
         else:
             if not file_io.file_exists(filepath):

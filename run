@@ -14,5 +14,6 @@ docker run -d --name $CONTAINER_NAME -it -p $PORT:50051 \
          daangn/faiss-image-server server.py --log "log/${CONTAINER_NAME}.log" \
            --save_filepath s3://daangn/ml/test/models/faiss-image-server.index \
            --remote_embedding_host "image-embedding-server:50051" \
+           --remote_embedding_path "s3://daangn/ml/test/embeddings" \
            --lb \
            --debug
