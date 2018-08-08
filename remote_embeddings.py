@@ -13,14 +13,14 @@ class ImageEmbeddingService:
         self.host = host
         self.load_balancing = load_balancing
         self._stub = None
-        self._last_stub_time = None
+        self._last_stub_time = 0
         self._timeout = timeout
 
         response = self._get_stub().Dimension(pb2.Empty())
         self._dim = response.dim
 
     def _get_stub(self):
-        if self._last_stub_time and (time() - self._last_stub_time) < self.KEEP_STUB_SEC:
+        if (time() - self._last_stub_time) < self.KEEP_STUB_SEC:
             return self._stub
         if self.load_balancing:
             channel = grpc.insecure_channel(self.host, [("grpc.lb_policy_name", "round_robin")])
