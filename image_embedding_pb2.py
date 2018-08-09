@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='image_embedding.proto',
   package='image_embedding',
   syntax='proto3',
-  serialized_pb=_b('\n\x15image_embedding.proto\x12\x0fimage_embedding\"\x1f\n\x10\x45mbeddingRequest\x12\x0b\n\x03url\x18\x01 \x01(\t\"\x07\n\x05\x45mpty\"&\n\x11\x45mbeddingResponse\x12\x11\n\tembedding\x18\x01 \x03(\x02\" \n\x11\x44imensionResponse\x12\x0b\n\x03\x64im\x18\x01 \x01(\x05\x32\xb1\x01\n\x0eImageEmbedding\x12T\n\tEmbedding\x12!.image_embedding.EmbeddingRequest\x1a\".image_embedding.EmbeddingResponse\"\x00\x12I\n\tDimension\x12\x16.image_embedding.Empty\x1a\".image_embedding.DimensionResponse\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x15image_embedding.proto\x12\x0fimage_embedding\"\x1f\n\x10\x45mbeddingRequest\x12\x0b\n\x03url\x18\x01 \x01(\t\"\x07\n\x05\x45mpty\"&\n\x11\x45mbeddingResponse\x12\x11\n\tembedding\x18\x01 \x03(\x02\" \n\x11\x44imensionResponse\x12\x0b\n\x03\x64im\x18\x01 \x01(\x05\" \n\rSimpleReponse\x12\x0f\n\x07message\x18\x01 \x01(\t2\xf3\x01\n\x0eImageEmbedding\x12T\n\tEmbedding\x12!.image_embedding.EmbeddingRequest\x1a\".image_embedding.EmbeddingResponse\"\x00\x12I\n\tDimension\x12\x16.image_embedding.Empty\x1a\".image_embedding.DimensionResponse\"\x00\x12@\n\x04Info\x12\x16.image_embedding.Empty\x1a\x1e.image_embedding.SimpleReponse\"\x00\x62\x06proto3')
 )
 
 
@@ -141,10 +141,42 @@ _DIMENSIONRESPONSE = _descriptor.Descriptor(
   serialized_end=156,
 )
 
+
+_SIMPLEREPONSE = _descriptor.Descriptor(
+  name='SimpleReponse',
+  full_name='image_embedding.SimpleReponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='message', full_name='image_embedding.SimpleReponse.message', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=158,
+  serialized_end=190,
+)
+
 DESCRIPTOR.message_types_by_name['EmbeddingRequest'] = _EMBEDDINGREQUEST
 DESCRIPTOR.message_types_by_name['Empty'] = _EMPTY
 DESCRIPTOR.message_types_by_name['EmbeddingResponse'] = _EMBEDDINGRESPONSE
 DESCRIPTOR.message_types_by_name['DimensionResponse'] = _DIMENSIONRESPONSE
+DESCRIPTOR.message_types_by_name['SimpleReponse'] = _SIMPLEREPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 EmbeddingRequest = _reflection.GeneratedProtocolMessageType('EmbeddingRequest', (_message.Message,), dict(
@@ -175,6 +207,13 @@ DimensionResponse = _reflection.GeneratedProtocolMessageType('DimensionResponse'
   ))
 _sym_db.RegisterMessage(DimensionResponse)
 
+SimpleReponse = _reflection.GeneratedProtocolMessageType('SimpleReponse', (_message.Message,), dict(
+  DESCRIPTOR = _SIMPLEREPONSE,
+  __module__ = 'image_embedding_pb2'
+  # @@protoc_insertion_point(class_scope:image_embedding.SimpleReponse)
+  ))
+_sym_db.RegisterMessage(SimpleReponse)
+
 
 
 _IMAGEEMBEDDING = _descriptor.ServiceDescriptor(
@@ -183,8 +222,8 @@ _IMAGEEMBEDDING = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   options=None,
-  serialized_start=159,
-  serialized_end=336,
+  serialized_start=193,
+  serialized_end=436,
   methods=[
   _descriptor.MethodDescriptor(
     name='Embedding',
@@ -202,6 +241,15 @@ _IMAGEEMBEDDING = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_EMPTY,
     output_type=_DIMENSIONRESPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Info',
+    full_name='image_embedding.ImageEmbedding.Info',
+    index=2,
+    containing_service=None,
+    input_type=_EMPTY,
+    output_type=_SIMPLEREPONSE,
     options=None,
   ),
 ])

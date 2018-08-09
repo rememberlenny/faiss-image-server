@@ -38,21 +38,21 @@ _ADDREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='url', full_name='faiss.AddRequest.url', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='created_at_ts', full_name='faiss.AddRequest.created_at_ts', index=2,
       number=3, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -83,7 +83,7 @@ _IDREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -114,14 +114,14 @@ _SEARCHREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='count', full_name='faiss.SearchRequest.count', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -152,7 +152,7 @@ _FETCHREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -183,7 +183,7 @@ _IMPORTREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -214,7 +214,7 @@ _SIMPLEREPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -245,14 +245,14 @@ _SEARCHREPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='scores', full_name='faiss.SearchReponse.scores', index=1,
       number=2, type=2, cpp_type=6, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -307,7 +307,7 @@ _SIMILARITYREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -338,14 +338,14 @@ _SIMILARITYREPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='count', full_name='faiss.SimilarityReponse.count', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -376,14 +376,14 @@ _CLUSTERIDREPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='cluster_ids', full_name='faiss.ClusterIdReponse.cluster_ids', index=1,
       number=2, type=5, cpp_type=1, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -414,14 +414,14 @@ _TRAINCLUSTERREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='save_filepath', full_name='faiss.TrainClusterRequest.save_filepath', index=1,
       number=2, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -538,507 +538,136 @@ TrainClusterRequest = _reflection.GeneratedProtocolMessageType('TrainClusterRequ
 _sym_db.RegisterMessage(TrainClusterRequest)
 
 
-try:
-  # THESE ELEMENTS WILL BE DEPRECATED.
-  # Please use the generated *_pb2_grpc.py files instead.
-  import grpc
-  from grpc.beta import implementations as beta_implementations
-  from grpc.beta import interfaces as beta_interfaces
-  from grpc.framework.common import cardinality
-  from grpc.framework.interfaces.face import utilities as face_utilities
 
+_IMAGEINDEX = _descriptor.ServiceDescriptor(
+  name='ImageIndex',
+  full_name='faiss.ImageIndex',
+  file=DESCRIPTOR,
+  index=0,
+  options=None,
+  serialized_start=544,
+  serialized_end=1261,
+  methods=[
+  _descriptor.MethodDescriptor(
+    name='Add',
+    full_name='faiss.ImageIndex.Add',
+    index=0,
+    containing_service=None,
+    input_type=_ADDREQUEST,
+    output_type=_SIMPLEREPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Remove',
+    full_name='faiss.ImageIndex.Remove',
+    index=1,
+    containing_service=None,
+    input_type=_IDREQUEST,
+    output_type=_SIMPLEREPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Search',
+    full_name='faiss.ImageIndex.Search',
+    index=2,
+    containing_service=None,
+    input_type=_SEARCHREQUEST,
+    output_type=_SEARCHREPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Fetch',
+    full_name='faiss.ImageIndex.Fetch',
+    index=3,
+    containing_service=None,
+    input_type=_FETCHREQUEST,
+    output_type=_SIMPLEREPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Info',
+    full_name='faiss.ImageIndex.Info',
+    index=4,
+    containing_service=None,
+    input_type=_EMPTY,
+    output_type=_SIMPLEREPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Save',
+    full_name='faiss.ImageIndex.Save',
+    index=5,
+    containing_service=None,
+    input_type=_EMPTY,
+    output_type=_SIMPLEREPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Train',
+    full_name='faiss.ImageIndex.Train',
+    index=6,
+    containing_service=None,
+    input_type=_EMPTY,
+    output_type=_SIMPLEREPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Import',
+    full_name='faiss.ImageIndex.Import',
+    index=7,
+    containing_service=None,
+    input_type=_IMPORTREQUEST,
+    output_type=_SIMPLEREPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Migrate',
+    full_name='faiss.ImageIndex.Migrate',
+    index=8,
+    containing_service=None,
+    input_type=_EMPTY,
+    output_type=_SIMPLEREPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Similarity',
+    full_name='faiss.ImageIndex.Similarity',
+    index=9,
+    containing_service=None,
+    input_type=_SIMILARITYREQUEST,
+    output_type=_SIMILARITYREPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='ClusterId',
+    full_name='faiss.ImageIndex.ClusterId',
+    index=10,
+    containing_service=None,
+    input_type=_SIMILARITYREQUEST,
+    output_type=_CLUSTERIDREPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='TrainCluster',
+    full_name='faiss.ImageIndex.TrainCluster',
+    index=11,
+    containing_service=None,
+    input_type=_TRAINCLUSTERREQUEST,
+    output_type=_SIMPLEREPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Reset',
+    full_name='faiss.ImageIndex.Reset',
+    index=12,
+    containing_service=None,
+    input_type=_EMPTY,
+    output_type=_SIMPLEREPONSE,
+    options=None,
+  ),
+])
+_sym_db.RegisterServiceDescriptor(_IMAGEINDEX)
 
-  class ImageIndexStub(object):
-    # missing associated documentation comment in .proto file
-    pass
+DESCRIPTOR.services_by_name['ImageIndex'] = _IMAGEINDEX
 
-    def __init__(self, channel):
-      """Constructor.
-
-      Args:
-        channel: A grpc.Channel.
-      """
-      self.Add = channel.unary_unary(
-          '/faiss.ImageIndex/Add',
-          request_serializer=AddRequest.SerializeToString,
-          response_deserializer=SimpleReponse.FromString,
-          )
-      self.Remove = channel.unary_unary(
-          '/faiss.ImageIndex/Remove',
-          request_serializer=IdRequest.SerializeToString,
-          response_deserializer=SimpleReponse.FromString,
-          )
-      self.Search = channel.unary_unary(
-          '/faiss.ImageIndex/Search',
-          request_serializer=SearchRequest.SerializeToString,
-          response_deserializer=SearchReponse.FromString,
-          )
-      self.Fetch = channel.unary_unary(
-          '/faiss.ImageIndex/Fetch',
-          request_serializer=FetchRequest.SerializeToString,
-          response_deserializer=SimpleReponse.FromString,
-          )
-      self.Info = channel.unary_unary(
-          '/faiss.ImageIndex/Info',
-          request_serializer=Empty.SerializeToString,
-          response_deserializer=SimpleReponse.FromString,
-          )
-      self.Save = channel.unary_unary(
-          '/faiss.ImageIndex/Save',
-          request_serializer=Empty.SerializeToString,
-          response_deserializer=SimpleReponse.FromString,
-          )
-      self.Train = channel.unary_unary(
-          '/faiss.ImageIndex/Train',
-          request_serializer=Empty.SerializeToString,
-          response_deserializer=SimpleReponse.FromString,
-          )
-      self.Import = channel.unary_unary(
-          '/faiss.ImageIndex/Import',
-          request_serializer=ImportRequest.SerializeToString,
-          response_deserializer=SimpleReponse.FromString,
-          )
-      self.Migrate = channel.unary_unary(
-          '/faiss.ImageIndex/Migrate',
-          request_serializer=Empty.SerializeToString,
-          response_deserializer=SimpleReponse.FromString,
-          )
-      self.Similarity = channel.unary_unary(
-          '/faiss.ImageIndex/Similarity',
-          request_serializer=SimilarityRequest.SerializeToString,
-          response_deserializer=SimilarityReponse.FromString,
-          )
-      self.ClusterId = channel.unary_unary(
-          '/faiss.ImageIndex/ClusterId',
-          request_serializer=SimilarityRequest.SerializeToString,
-          response_deserializer=ClusterIdReponse.FromString,
-          )
-      self.TrainCluster = channel.unary_unary(
-          '/faiss.ImageIndex/TrainCluster',
-          request_serializer=TrainClusterRequest.SerializeToString,
-          response_deserializer=SimpleReponse.FromString,
-          )
-      self.Reset = channel.unary_unary(
-          '/faiss.ImageIndex/Reset',
-          request_serializer=Empty.SerializeToString,
-          response_deserializer=SimpleReponse.FromString,
-          )
-
-
-  class ImageIndexServicer(object):
-    # missing associated documentation comment in .proto file
-    pass
-
-    def Add(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-      context.set_details('Method not implemented!')
-      raise NotImplementedError('Method not implemented!')
-
-    def Remove(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-      context.set_details('Method not implemented!')
-      raise NotImplementedError('Method not implemented!')
-
-    def Search(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-      context.set_details('Method not implemented!')
-      raise NotImplementedError('Method not implemented!')
-
-    def Fetch(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-      context.set_details('Method not implemented!')
-      raise NotImplementedError('Method not implemented!')
-
-    def Info(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-      context.set_details('Method not implemented!')
-      raise NotImplementedError('Method not implemented!')
-
-    def Save(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-      context.set_details('Method not implemented!')
-      raise NotImplementedError('Method not implemented!')
-
-    def Train(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-      context.set_details('Method not implemented!')
-      raise NotImplementedError('Method not implemented!')
-
-    def Import(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-      context.set_details('Method not implemented!')
-      raise NotImplementedError('Method not implemented!')
-
-    def Migrate(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-      context.set_details('Method not implemented!')
-      raise NotImplementedError('Method not implemented!')
-
-    def Similarity(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-      context.set_details('Method not implemented!')
-      raise NotImplementedError('Method not implemented!')
-
-    def ClusterId(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-      context.set_details('Method not implemented!')
-      raise NotImplementedError('Method not implemented!')
-
-    def TrainCluster(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-      context.set_details('Method not implemented!')
-      raise NotImplementedError('Method not implemented!')
-
-    def Reset(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-      context.set_details('Method not implemented!')
-      raise NotImplementedError('Method not implemented!')
-
-
-  def add_ImageIndexServicer_to_server(servicer, server):
-    rpc_method_handlers = {
-        'Add': grpc.unary_unary_rpc_method_handler(
-            servicer.Add,
-            request_deserializer=AddRequest.FromString,
-            response_serializer=SimpleReponse.SerializeToString,
-        ),
-        'Remove': grpc.unary_unary_rpc_method_handler(
-            servicer.Remove,
-            request_deserializer=IdRequest.FromString,
-            response_serializer=SimpleReponse.SerializeToString,
-        ),
-        'Search': grpc.unary_unary_rpc_method_handler(
-            servicer.Search,
-            request_deserializer=SearchRequest.FromString,
-            response_serializer=SearchReponse.SerializeToString,
-        ),
-        'Fetch': grpc.unary_unary_rpc_method_handler(
-            servicer.Fetch,
-            request_deserializer=FetchRequest.FromString,
-            response_serializer=SimpleReponse.SerializeToString,
-        ),
-        'Info': grpc.unary_unary_rpc_method_handler(
-            servicer.Info,
-            request_deserializer=Empty.FromString,
-            response_serializer=SimpleReponse.SerializeToString,
-        ),
-        'Save': grpc.unary_unary_rpc_method_handler(
-            servicer.Save,
-            request_deserializer=Empty.FromString,
-            response_serializer=SimpleReponse.SerializeToString,
-        ),
-        'Train': grpc.unary_unary_rpc_method_handler(
-            servicer.Train,
-            request_deserializer=Empty.FromString,
-            response_serializer=SimpleReponse.SerializeToString,
-        ),
-        'Import': grpc.unary_unary_rpc_method_handler(
-            servicer.Import,
-            request_deserializer=ImportRequest.FromString,
-            response_serializer=SimpleReponse.SerializeToString,
-        ),
-        'Migrate': grpc.unary_unary_rpc_method_handler(
-            servicer.Migrate,
-            request_deserializer=Empty.FromString,
-            response_serializer=SimpleReponse.SerializeToString,
-        ),
-        'Similarity': grpc.unary_unary_rpc_method_handler(
-            servicer.Similarity,
-            request_deserializer=SimilarityRequest.FromString,
-            response_serializer=SimilarityReponse.SerializeToString,
-        ),
-        'ClusterId': grpc.unary_unary_rpc_method_handler(
-            servicer.ClusterId,
-            request_deserializer=SimilarityRequest.FromString,
-            response_serializer=ClusterIdReponse.SerializeToString,
-        ),
-        'TrainCluster': grpc.unary_unary_rpc_method_handler(
-            servicer.TrainCluster,
-            request_deserializer=TrainClusterRequest.FromString,
-            response_serializer=SimpleReponse.SerializeToString,
-        ),
-        'Reset': grpc.unary_unary_rpc_method_handler(
-            servicer.Reset,
-            request_deserializer=Empty.FromString,
-            response_serializer=SimpleReponse.SerializeToString,
-        ),
-    }
-    generic_handler = grpc.method_handlers_generic_handler(
-        'faiss.ImageIndex', rpc_method_handlers)
-    server.add_generic_rpc_handlers((generic_handler,))
-
-
-  class BetaImageIndexServicer(object):
-    """The Beta API is deprecated for 0.15.0 and later.
-
-    It is recommended to use the GA API (classes and functions in this
-    file not marked beta) for all further purposes. This class was generated
-    only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0."""
-    # missing associated documentation comment in .proto file
-    pass
-    def Add(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-    def Remove(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-    def Search(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-    def Fetch(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-    def Info(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-    def Save(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-    def Train(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-    def Import(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-    def Migrate(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-    def Similarity(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-    def ClusterId(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-    def TrainCluster(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-    def Reset(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-
-
-  class BetaImageIndexStub(object):
-    """The Beta API is deprecated for 0.15.0 and later.
-
-    It is recommended to use the GA API (classes and functions in this
-    file not marked beta) for all further purposes. This class was generated
-    only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0."""
-    # missing associated documentation comment in .proto file
-    pass
-    def Add(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
-      raise NotImplementedError()
-    Add.future = None
-    def Remove(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
-      raise NotImplementedError()
-    Remove.future = None
-    def Search(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
-      raise NotImplementedError()
-    Search.future = None
-    def Fetch(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
-      raise NotImplementedError()
-    Fetch.future = None
-    def Info(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
-      raise NotImplementedError()
-    Info.future = None
-    def Save(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
-      raise NotImplementedError()
-    Save.future = None
-    def Train(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
-      raise NotImplementedError()
-    Train.future = None
-    def Import(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
-      raise NotImplementedError()
-    Import.future = None
-    def Migrate(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
-      raise NotImplementedError()
-    Migrate.future = None
-    def Similarity(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
-      raise NotImplementedError()
-    Similarity.future = None
-    def ClusterId(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
-      raise NotImplementedError()
-    ClusterId.future = None
-    def TrainCluster(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
-      raise NotImplementedError()
-    TrainCluster.future = None
-    def Reset(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
-      raise NotImplementedError()
-    Reset.future = None
-
-
-  def beta_create_ImageIndex_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
-    """The Beta API is deprecated for 0.15.0 and later.
-
-    It is recommended to use the GA API (classes and functions in this
-    file not marked beta) for all further purposes. This function was
-    generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
-    request_deserializers = {
-      ('faiss.ImageIndex', 'Add'): AddRequest.FromString,
-      ('faiss.ImageIndex', 'ClusterId'): SimilarityRequest.FromString,
-      ('faiss.ImageIndex', 'Fetch'): FetchRequest.FromString,
-      ('faiss.ImageIndex', 'Import'): ImportRequest.FromString,
-      ('faiss.ImageIndex', 'Info'): Empty.FromString,
-      ('faiss.ImageIndex', 'Migrate'): Empty.FromString,
-      ('faiss.ImageIndex', 'Remove'): IdRequest.FromString,
-      ('faiss.ImageIndex', 'Reset'): Empty.FromString,
-      ('faiss.ImageIndex', 'Save'): Empty.FromString,
-      ('faiss.ImageIndex', 'Search'): SearchRequest.FromString,
-      ('faiss.ImageIndex', 'Similarity'): SimilarityRequest.FromString,
-      ('faiss.ImageIndex', 'Train'): Empty.FromString,
-      ('faiss.ImageIndex', 'TrainCluster'): TrainClusterRequest.FromString,
-    }
-    response_serializers = {
-      ('faiss.ImageIndex', 'Add'): SimpleReponse.SerializeToString,
-      ('faiss.ImageIndex', 'ClusterId'): ClusterIdReponse.SerializeToString,
-      ('faiss.ImageIndex', 'Fetch'): SimpleReponse.SerializeToString,
-      ('faiss.ImageIndex', 'Import'): SimpleReponse.SerializeToString,
-      ('faiss.ImageIndex', 'Info'): SimpleReponse.SerializeToString,
-      ('faiss.ImageIndex', 'Migrate'): SimpleReponse.SerializeToString,
-      ('faiss.ImageIndex', 'Remove'): SimpleReponse.SerializeToString,
-      ('faiss.ImageIndex', 'Reset'): SimpleReponse.SerializeToString,
-      ('faiss.ImageIndex', 'Save'): SimpleReponse.SerializeToString,
-      ('faiss.ImageIndex', 'Search'): SearchReponse.SerializeToString,
-      ('faiss.ImageIndex', 'Similarity'): SimilarityReponse.SerializeToString,
-      ('faiss.ImageIndex', 'Train'): SimpleReponse.SerializeToString,
-      ('faiss.ImageIndex', 'TrainCluster'): SimpleReponse.SerializeToString,
-    }
-    method_implementations = {
-      ('faiss.ImageIndex', 'Add'): face_utilities.unary_unary_inline(servicer.Add),
-      ('faiss.ImageIndex', 'ClusterId'): face_utilities.unary_unary_inline(servicer.ClusterId),
-      ('faiss.ImageIndex', 'Fetch'): face_utilities.unary_unary_inline(servicer.Fetch),
-      ('faiss.ImageIndex', 'Import'): face_utilities.unary_unary_inline(servicer.Import),
-      ('faiss.ImageIndex', 'Info'): face_utilities.unary_unary_inline(servicer.Info),
-      ('faiss.ImageIndex', 'Migrate'): face_utilities.unary_unary_inline(servicer.Migrate),
-      ('faiss.ImageIndex', 'Remove'): face_utilities.unary_unary_inline(servicer.Remove),
-      ('faiss.ImageIndex', 'Reset'): face_utilities.unary_unary_inline(servicer.Reset),
-      ('faiss.ImageIndex', 'Save'): face_utilities.unary_unary_inline(servicer.Save),
-      ('faiss.ImageIndex', 'Search'): face_utilities.unary_unary_inline(servicer.Search),
-      ('faiss.ImageIndex', 'Similarity'): face_utilities.unary_unary_inline(servicer.Similarity),
-      ('faiss.ImageIndex', 'Train'): face_utilities.unary_unary_inline(servicer.Train),
-      ('faiss.ImageIndex', 'TrainCluster'): face_utilities.unary_unary_inline(servicer.TrainCluster),
-    }
-    server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
-    return beta_implementations.server(method_implementations, options=server_options)
-
-
-  def beta_create_ImageIndex_stub(channel, host=None, metadata_transformer=None, pool=None, pool_size=None):
-    """The Beta API is deprecated for 0.15.0 and later.
-
-    It is recommended to use the GA API (classes and functions in this
-    file not marked beta) for all further purposes. This function was
-    generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
-    request_serializers = {
-      ('faiss.ImageIndex', 'Add'): AddRequest.SerializeToString,
-      ('faiss.ImageIndex', 'ClusterId'): SimilarityRequest.SerializeToString,
-      ('faiss.ImageIndex', 'Fetch'): FetchRequest.SerializeToString,
-      ('faiss.ImageIndex', 'Import'): ImportRequest.SerializeToString,
-      ('faiss.ImageIndex', 'Info'): Empty.SerializeToString,
-      ('faiss.ImageIndex', 'Migrate'): Empty.SerializeToString,
-      ('faiss.ImageIndex', 'Remove'): IdRequest.SerializeToString,
-      ('faiss.ImageIndex', 'Reset'): Empty.SerializeToString,
-      ('faiss.ImageIndex', 'Save'): Empty.SerializeToString,
-      ('faiss.ImageIndex', 'Search'): SearchRequest.SerializeToString,
-      ('faiss.ImageIndex', 'Similarity'): SimilarityRequest.SerializeToString,
-      ('faiss.ImageIndex', 'Train'): Empty.SerializeToString,
-      ('faiss.ImageIndex', 'TrainCluster'): TrainClusterRequest.SerializeToString,
-    }
-    response_deserializers = {
-      ('faiss.ImageIndex', 'Add'): SimpleReponse.FromString,
-      ('faiss.ImageIndex', 'ClusterId'): ClusterIdReponse.FromString,
-      ('faiss.ImageIndex', 'Fetch'): SimpleReponse.FromString,
-      ('faiss.ImageIndex', 'Import'): SimpleReponse.FromString,
-      ('faiss.ImageIndex', 'Info'): SimpleReponse.FromString,
-      ('faiss.ImageIndex', 'Migrate'): SimpleReponse.FromString,
-      ('faiss.ImageIndex', 'Remove'): SimpleReponse.FromString,
-      ('faiss.ImageIndex', 'Reset'): SimpleReponse.FromString,
-      ('faiss.ImageIndex', 'Save'): SimpleReponse.FromString,
-      ('faiss.ImageIndex', 'Search'): SearchReponse.FromString,
-      ('faiss.ImageIndex', 'Similarity'): SimilarityReponse.FromString,
-      ('faiss.ImageIndex', 'Train'): SimpleReponse.FromString,
-      ('faiss.ImageIndex', 'TrainCluster'): SimpleReponse.FromString,
-    }
-    cardinalities = {
-      'Add': cardinality.Cardinality.UNARY_UNARY,
-      'ClusterId': cardinality.Cardinality.UNARY_UNARY,
-      'Fetch': cardinality.Cardinality.UNARY_UNARY,
-      'Import': cardinality.Cardinality.UNARY_UNARY,
-      'Info': cardinality.Cardinality.UNARY_UNARY,
-      'Migrate': cardinality.Cardinality.UNARY_UNARY,
-      'Remove': cardinality.Cardinality.UNARY_UNARY,
-      'Reset': cardinality.Cardinality.UNARY_UNARY,
-      'Save': cardinality.Cardinality.UNARY_UNARY,
-      'Search': cardinality.Cardinality.UNARY_UNARY,
-      'Similarity': cardinality.Cardinality.UNARY_UNARY,
-      'Train': cardinality.Cardinality.UNARY_UNARY,
-      'TrainCluster': cardinality.Cardinality.UNARY_UNARY,
-    }
-    stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
-    return beta_implementations.dynamic_stub(channel, 'faiss.ImageIndex', cardinalities, options=stub_options)
-except ImportError:
-  pass
 # @@protoc_insertion_point(module_scope)

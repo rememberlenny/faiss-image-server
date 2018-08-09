@@ -24,6 +24,11 @@ class ImageEmbeddingStub(object):
         request_serializer=image__embedding__pb2.Empty.SerializeToString,
         response_deserializer=image__embedding__pb2.DimensionResponse.FromString,
         )
+    self.Info = channel.unary_unary(
+        '/image_embedding.ImageEmbedding/Info',
+        request_serializer=image__embedding__pb2.Empty.SerializeToString,
+        response_deserializer=image__embedding__pb2.SimpleReponse.FromString,
+        )
 
 
 class ImageEmbeddingServicer(object):
@@ -44,6 +49,13 @@ class ImageEmbeddingServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def Info(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_ImageEmbeddingServicer_to_server(servicer, server):
   rpc_method_handlers = {
@@ -56,6 +68,11 @@ def add_ImageEmbeddingServicer_to_server(servicer, server):
           servicer.Dimension,
           request_deserializer=image__embedding__pb2.Empty.FromString,
           response_serializer=image__embedding__pb2.DimensionResponse.SerializeToString,
+      ),
+      'Info': grpc.unary_unary_rpc_method_handler(
+          servicer.Info,
+          request_deserializer=image__embedding__pb2.Empty.FromString,
+          response_serializer=image__embedding__pb2.SimpleReponse.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(
