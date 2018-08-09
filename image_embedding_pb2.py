@@ -38,7 +38,7 @@ _EMBEDDINGREQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -93,7 +93,7 @@ _EMBEDDINGRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -124,7 +124,7 @@ _DIMENSIONRESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
@@ -176,155 +176,37 @@ DimensionResponse = _reflection.GeneratedProtocolMessageType('DimensionResponse'
 _sym_db.RegisterMessage(DimensionResponse)
 
 
-try:
-  # THESE ELEMENTS WILL BE DEPRECATED.
-  # Please use the generated *_pb2_grpc.py files instead.
-  import grpc
-  from grpc.beta import implementations as beta_implementations
-  from grpc.beta import interfaces as beta_interfaces
-  from grpc.framework.common import cardinality
-  from grpc.framework.interfaces.face import utilities as face_utilities
 
+_IMAGEEMBEDDING = _descriptor.ServiceDescriptor(
+  name='ImageEmbedding',
+  full_name='image_embedding.ImageEmbedding',
+  file=DESCRIPTOR,
+  index=0,
+  options=None,
+  serialized_start=159,
+  serialized_end=336,
+  methods=[
+  _descriptor.MethodDescriptor(
+    name='Embedding',
+    full_name='image_embedding.ImageEmbedding.Embedding',
+    index=0,
+    containing_service=None,
+    input_type=_EMBEDDINGREQUEST,
+    output_type=_EMBEDDINGRESPONSE,
+    options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Dimension',
+    full_name='image_embedding.ImageEmbedding.Dimension',
+    index=1,
+    containing_service=None,
+    input_type=_EMPTY,
+    output_type=_DIMENSIONRESPONSE,
+    options=None,
+  ),
+])
+_sym_db.RegisterServiceDescriptor(_IMAGEEMBEDDING)
 
-  class ImageEmbeddingStub(object):
-    # missing associated documentation comment in .proto file
-    pass
+DESCRIPTOR.services_by_name['ImageEmbedding'] = _IMAGEEMBEDDING
 
-    def __init__(self, channel):
-      """Constructor.
-
-      Args:
-        channel: A grpc.Channel.
-      """
-      self.Embedding = channel.unary_unary(
-          '/image_embedding.ImageEmbedding/Embedding',
-          request_serializer=EmbeddingRequest.SerializeToString,
-          response_deserializer=EmbeddingResponse.FromString,
-          )
-      self.Dimension = channel.unary_unary(
-          '/image_embedding.ImageEmbedding/Dimension',
-          request_serializer=Empty.SerializeToString,
-          response_deserializer=DimensionResponse.FromString,
-          )
-
-
-  class ImageEmbeddingServicer(object):
-    # missing associated documentation comment in .proto file
-    pass
-
-    def Embedding(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-      context.set_details('Method not implemented!')
-      raise NotImplementedError('Method not implemented!')
-
-    def Dimension(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-      context.set_details('Method not implemented!')
-      raise NotImplementedError('Method not implemented!')
-
-
-  def add_ImageEmbeddingServicer_to_server(servicer, server):
-    rpc_method_handlers = {
-        'Embedding': grpc.unary_unary_rpc_method_handler(
-            servicer.Embedding,
-            request_deserializer=EmbeddingRequest.FromString,
-            response_serializer=EmbeddingResponse.SerializeToString,
-        ),
-        'Dimension': grpc.unary_unary_rpc_method_handler(
-            servicer.Dimension,
-            request_deserializer=Empty.FromString,
-            response_serializer=DimensionResponse.SerializeToString,
-        ),
-    }
-    generic_handler = grpc.method_handlers_generic_handler(
-        'image_embedding.ImageEmbedding', rpc_method_handlers)
-    server.add_generic_rpc_handlers((generic_handler,))
-
-
-  class BetaImageEmbeddingServicer(object):
-    """The Beta API is deprecated for 0.15.0 and later.
-
-    It is recommended to use the GA API (classes and functions in this
-    file not marked beta) for all further purposes. This class was generated
-    only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0."""
-    # missing associated documentation comment in .proto file
-    pass
-    def Embedding(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-    def Dimension(self, request, context):
-      # missing associated documentation comment in .proto file
-      pass
-      context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-
-
-  class BetaImageEmbeddingStub(object):
-    """The Beta API is deprecated for 0.15.0 and later.
-
-    It is recommended to use the GA API (classes and functions in this
-    file not marked beta) for all further purposes. This class was generated
-    only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0."""
-    # missing associated documentation comment in .proto file
-    pass
-    def Embedding(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
-      raise NotImplementedError()
-    Embedding.future = None
-    def Dimension(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      # missing associated documentation comment in .proto file
-      pass
-      raise NotImplementedError()
-    Dimension.future = None
-
-
-  def beta_create_ImageEmbedding_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
-    """The Beta API is deprecated for 0.15.0 and later.
-
-    It is recommended to use the GA API (classes and functions in this
-    file not marked beta) for all further purposes. This function was
-    generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
-    request_deserializers = {
-      ('image_embedding.ImageEmbedding', 'Dimension'): Empty.FromString,
-      ('image_embedding.ImageEmbedding', 'Embedding'): EmbeddingRequest.FromString,
-    }
-    response_serializers = {
-      ('image_embedding.ImageEmbedding', 'Dimension'): DimensionResponse.SerializeToString,
-      ('image_embedding.ImageEmbedding', 'Embedding'): EmbeddingResponse.SerializeToString,
-    }
-    method_implementations = {
-      ('image_embedding.ImageEmbedding', 'Dimension'): face_utilities.unary_unary_inline(servicer.Dimension),
-      ('image_embedding.ImageEmbedding', 'Embedding'): face_utilities.unary_unary_inline(servicer.Embedding),
-    }
-    server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
-    return beta_implementations.server(method_implementations, options=server_options)
-
-
-  def beta_create_ImageEmbedding_stub(channel, host=None, metadata_transformer=None, pool=None, pool_size=None):
-    """The Beta API is deprecated for 0.15.0 and later.
-
-    It is recommended to use the GA API (classes and functions in this
-    file not marked beta) for all further purposes. This function was
-    generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
-    request_serializers = {
-      ('image_embedding.ImageEmbedding', 'Dimension'): Empty.SerializeToString,
-      ('image_embedding.ImageEmbedding', 'Embedding'): EmbeddingRequest.SerializeToString,
-    }
-    response_deserializers = {
-      ('image_embedding.ImageEmbedding', 'Dimension'): DimensionResponse.FromString,
-      ('image_embedding.ImageEmbedding', 'Embedding'): EmbeddingResponse.FromString,
-    }
-    cardinalities = {
-      'Dimension': cardinality.Cardinality.UNARY_UNARY,
-      'Embedding': cardinality.Cardinality.UNARY_UNARY,
-    }
-    stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
-    return beta_implementations.dynamic_stub(channel, 'image_embedding.ImageEmbedding', cardinalities, options=stub_options)
-except ImportError:
-  pass
 # @@protoc_insertion_point(module_scope)
