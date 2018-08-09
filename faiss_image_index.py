@@ -445,7 +445,19 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
         self.faiss_index.remove_ids(ids)
 
         filepath = self._get_filepath(request.id) 
-        if file_io.file_exists(filepath):
+
+        if self.remote_embedding_info:
+            bucket_name, key = self.remote_embedding_info
+            key = "%s/%s" % (key, filepath)
+            try:
+                client.head_object(Bucket=bucket_name, Key=key)
+                client.delete_object(Bucket=bucket_name, Key=key)
+                return pb2.SimpleReponse(message='Removed, %s!' % request.id)
+            except botocore.exceptions.ClientError as e:
+                error_code = int(e.response['Error']['Code'])
+                if error_code != 404:
+                    raise e
+        elif file_io.file_exists(filepath):
             file_io.delete_file(filepath)
             return pb2.SimpleReponse(message='Removed, %s!' % request.id)
 
