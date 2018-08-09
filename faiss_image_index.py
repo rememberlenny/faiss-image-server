@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 import time
 import logging
 import glob
@@ -437,7 +438,8 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
         return pb2.SearchReponse(ids=I[0], scores=D[0])
 
     def Info(self, request, context):
-        return pb2.SimpleReponse(message='%s' % self.faiss_index.ntotal())
+        return pb2.SimpleReponse(message='host: %s, total: %s' %
+                (os.environ['HOSTNAME'], self.faiss_index.ntotal()))
 
     def Remove(self, request, context):
         logging.debug('remove - id: %d', request.id)
