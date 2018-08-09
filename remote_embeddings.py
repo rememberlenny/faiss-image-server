@@ -42,7 +42,7 @@ class ImageEmbeddingService:
                 return None
             if not is_retry:
                 logging.warn("embedding error: %s", msg)
-                self._last_stub_time = None
+                self._last_stub_time = 0
                 return self.get_embedding(url, is_retry=True)
             raise e
         return np.array(response.embedding, dtype=np.float32)
