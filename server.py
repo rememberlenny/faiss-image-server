@@ -39,6 +39,7 @@ def serve(args):
     except KeyboardInterrupt:
         server.stop(0)
         faiss_image_index.save()
+        faiss_image_index.stop()
         logging.info('server stopped')
 
 def train(args):
