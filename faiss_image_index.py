@@ -5,6 +5,7 @@ import logging
 import glob
 import random
 import shutil
+from dateutil import tz
 
 import re
 import faiss
@@ -57,6 +58,12 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
             bucket_name, key = url_to_s3_info(args.save_filepath)
             self.remote_save_info = (bucket_name, key)
             self.save_filepath = '/tmp/server.index'
+
+            res = s3.meta.client.head_object(Bucket=bucket_name, Key=key)
+            logging.info('save_file ContentLength: %d, LastModified: %s',
+                    res['ContentLength'],
+                    res['LastModified'].astimezone(tz.gettz('Asia/Seoul')).isoformat())
+
             s3.Bucket(bucket_name).download_file(key, self.save_filepath)
         else:
             self.remote_save_info = None
