@@ -27,7 +27,7 @@ from remote_embeddings import ImageEmbeddingService as RemoteImageEmbeddingServi
 from faiss_index import FaissIndex, FaissShrinkedIndex
 
 # Disable debug logs of the boto lib
-logging.getLogger('botocore').setLevel(logging.INFO)
+logging.getLogger('botocore').setLevel(logging.WARN)
 logging.getLogger('boto3').setLevel(logging.INFO)
 logging.getLogger('s3transfer').setLevel(logging.INFO)
 
@@ -437,7 +437,7 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
             try:
                 res = client.get_object(Bucket=bucket_name, Key=key)
             except client.exceptions.NoSuchKey:
-                logging.debug('no key: %s' % key)
+                logging.warn('no key: %s' % key)
                 return pb2.SearchReponse()
             embedding = np.frombuffer(res['Body'].read(), dtype=np.float32)
         else:
@@ -473,6 +473,7 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
                 error_code = int(e.response['Error']['Code'])
                 if error_code != 404:
                     raise e
+                logging.warn('no key: %s' % key)
         elif file_io.file_exists(filepath):
             file_io.delete_file(filepath)
             return pb2.SimpleReponse(message='Removed, %s!' % request.id)
