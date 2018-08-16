@@ -316,10 +316,6 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
             s3.meta.client.upload_file(self.save_filepath, bucket_name, key)
             logging.info('index file uploaded to s3://%s/%s' % (bucket_name, key))
 
-    def stop(self):
-        if type(self.embedding_service) is RemoteImageEmbeddingService:
-            self.embedding_service.stop()
-
     def Add(self, request, context):
         logging.debug('add - id: %d', request.id)
         if self._more_recent_emb_file_exists(request):

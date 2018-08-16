@@ -48,6 +48,3 @@ class ImageEmbeddingService:
             stub = pb2_grpc.ImageEmbeddingStub(channel)
             response = stub.Info(pb2.Empty(), timeout=1)
         return response.message
-
-    def stop(self):
-        self._channel.close()
