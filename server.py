@@ -11,7 +11,7 @@ import grpc
 import faissimageindex_pb2_grpc as pb2_grpc
 from faiss_image_index import FaissImageIndex
 
-_ONE_DAY_IN_SECONDS = 60 * 60 * 24
+_ONE_DAY_IN_SECONDS = 60 * 60
 
 def serve(args):
     logging.info('server loading')
@@ -36,6 +36,7 @@ def serve(args):
     try:
         while True:
             time.sleep(_ONE_DAY_IN_SECONDS)
+            faiss_image_index.save()
     except KeyboardInterrupt:
         server.stop(0)
         faiss_image_index.save()
