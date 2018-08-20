@@ -376,10 +376,25 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
 
     def _more_recent_emb_file_exists(self, request):
         filepath = self._get_filepath(request.id)
-        if not file_io.file_exists(filepath):
-            return False
-        file_ts = file_io.stat(filepath).mtime_nsec / 1000000000
-        return file_ts >= request.created_at_ts
+        file_ts = self._get_file_ts(filepath)
+        if file_ts:
+            return file_ts >= request.created_at_ts
+        return False
+
+    def _get_file_ts(self, filepath):
+        if self.remote_embedding_info:
+            bucket_name, key = self.remote_embedding_info
+            key = "%s/%s" % (key, filepath)
+            try:
+                res = self._client().head_object(Bucket=bucket_name, Key=key)
+                return res['LastModified'].timestamp()
+            except botocore.exceptions.ClientError as e:
+                error_code = int(e.response['Error']['Code'])
+                if error_code != 404:
+                    raise e
+        elif file_io.file_exists(filepath):
+            return file_io.stat(filepath).mtime_nsec / 1000000000
+        return None
 
     def fetch_embedding(self, request):
         t0 = time.time()

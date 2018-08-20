@@ -33,8 +33,8 @@ RUN mkdir nets && cd nets && \
 
 RUN pip install -q scikit-learn==0.19.2
 RUN pip install -q scipy==1.1.0
-RUN pip install -q boto3
 RUN pip install -q click
+RUN pip install -q boto3
 
 # for click library
 ENV LC_ALL=C.UTF-8
