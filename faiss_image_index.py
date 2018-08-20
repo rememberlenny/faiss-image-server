@@ -31,10 +31,6 @@ logging.getLogger('botocore').setLevel(logging.WARN)
 logging.getLogger('boto3').setLevel(logging.INFO)
 logging.getLogger('s3transfer').setLevel(logging.INFO)
 
-s3 = boto3.resource('s3')
-session = botocore.session.get_session()
-client = session.create_client('s3')
-
 def chunks(l, n):
     """Yield successive n-sized chunks from l."""
     for i in range(0, len(l), n):
@@ -52,6 +48,9 @@ def url_to_s3_info(url):
 
 
 class FaissImageIndex(pb2_grpc.ImageIndexServicer):
+    def _client(self):
+        session = boto3.session.Session()
+        return session.client('s3')
 
     def __init__(self, args):
         if args.save_filepath.startswith('s3://'):
@@ -59,12 +58,13 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
             self.remote_save_info = (bucket_name, key)
             self.save_filepath = '/tmp/server.index'
 
-            res = s3.meta.client.head_object(Bucket=bucket_name, Key=key)
+            client = self._client()
+            res = client.head_object(Bucket=bucket_name, Key=key)
             logging.info('save_file ContentLength: %d, LastModified: %s',
                     res['ContentLength'],
                     res['LastModified'].astimezone(tz.gettz('Asia/Seoul')).isoformat())
 
-            s3.Bucket(bucket_name).download_file(key, self.save_filepath)
+            client.download_file(bucket_name, key, self.save_filepath)
         else:
             self.remote_save_info = None
             self.save_filepath = args.save_filepath
@@ -313,7 +313,7 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
         logging.info("index saved to %s, %.3f s", self.save_filepath, time.time() - t0)
         if self.remote_save_info:
             bucket_name, key = self.remote_save_info
-            s3.meta.client.upload_file(self.save_filepath, bucket_name, key)
+            self._client().upload_file(self.save_filepath, bucket_name, key)
             logging.info('index file uploaded to s3://%s/%s' % (bucket_name, key))
 
     def Add(self, request, context):
@@ -392,7 +392,7 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
         if self.remote_embedding_info:
             bucket_name, key = self.remote_embedding_info
             key = "%s/%s" % (key, filepath)
-            client.put_object(Bucket=bucket_name, Key=key, Body=embedding.tostring())
+            self._client().put_object(Bucket=bucket_name, Key=key, Body=embedding.tostring())
         else:
             file_io.write_string_to_file(filepath, embedding.tostring())
 
@@ -430,6 +430,7 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
         if self.remote_embedding_info:
             bucket_name, key = self.remote_embedding_info
             key = "%s/%s" % (key, filepath)
+            client = self._client()
             try:
                 res = client.get_object(Bucket=bucket_name, Key=key)
             except client.exceptions.NoSuchKey:
@@ -462,6 +463,7 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
             bucket_name, key = self.remote_embedding_info
             key = "%s/%s" % (key, filepath)
             try:
+                client = self._client()
                 client.head_object(Bucket=bucket_name, Key=key)
                 client.delete_object(Bucket=bucket_name, Key=key)
                 return pb2.SimpleReponse(message='Removed, %s!' % request.id)
