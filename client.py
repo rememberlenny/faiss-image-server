@@ -23,29 +23,29 @@ def info(host):
 @click.command()
 @click.option('--host', default='localhost:50051', help='host:port')
 @click.option('--count', default=5, help='results limit count')
-@click.argument('id')
+@click.argument('id', type=int)
 def search(host, id, count):
     with grpc.insecure_channel(host) as channel:
-        stub = pb2_grpc.ImageEmbeddingStub(channel)
+        stub = pb2_grpc.ImageIndexStub(channel)
         response = stub.Search(pb2.SearchRequest(id=id, count=5))
         print("%s, %s" % (response.ids, response.scores))
 
 @click.command()
 @click.option('--host', default='localhost:50051', help='host:port')
-@click.argument('id')
+@click.argument('id', type=int)
 @click.argument('url')
 def add(host, id, url):
     with grpc.insecure_channel(host) as channel:
-        stub = pb2_grpc.ImageEmbeddingStub(channel)
-        response = stub.Add(pb2.AddRequest(id=id, created_at_ts=time(), url=url))
+        stub = pb2_grpc.ImageIndexStub(channel)
+        response = stub.Add(pb2.AddRequest(id=id, created_at_ts=int(time()), url=url))
         print(response.message)
 
 @click.command()
 @click.option('--host', default='localhost:50051', help='host:port')
-@click.argument('id')
+@click.argument('id', type=int)
 def remove(host, id):
     with grpc.insecure_channel(host) as channel:
-        stub = pb2_grpc.ImageEmbeddingStub(channel)
+        stub = pb2_grpc.ImageIndexStub(channel)
         response = stub.Remove(pb2.IdRequest(id=id))
         print(response.message)
 
