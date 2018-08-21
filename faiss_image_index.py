@@ -443,15 +443,9 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
     def Search(self, request, context):
         filepath = self._get_filepath(request.id)
         if self.remote_embedding_info:
-            bucket_name, key = self.remote_embedding_info
-            key = "%s/%s" % (key, filepath)
-            client = self._client()
-            try:
-                res = client.get_object(Bucket=bucket_name, Key=key)
-            except client.exceptions.NoSuchKey:
-                logging.warn('no key: %s' % key)
+            embedding = self._remote_path_to_embedding(filepath)
+            if embedding is None:
                 return pb2.SearchReponse()
-            embedding = np.frombuffer(res['Body'].read(), dtype=np.float32)
         else:
             if not file_io.file_exists(filepath):
                 return pb2.SearchReponse()
@@ -495,17 +489,38 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
 
     def Similarity(self, request, context):
         filepaths = np.array([self._get_filepath(id) for id in request.ids])
-        exists = np.array([file_io.file_exists(x) for x in filepaths])
-        filepaths = filepaths[exists]
-        count = len(filepaths)
-        if count < 1:
-            return pb2.SimilarityReponse(similarity=0.0, count=count)
 
-        xb = self._path_to_xb(filepaths)
-        features = xb.shape[1]
+        if self.remote_embedding_info:
+            client = self._client()
+            p = Pool(min(8, len(filepaths)))
+            def _path_to_embedding(filepaths):
+                return self._remote_path_to_embedding(filepaths, client)
+            embs = [emb for emb in p.imap(_path_to_embedding, filepaths) if emb is not None]
+            if len(embs) < 1:
+                return pb2.SimilarityReponse(similarity=0.0, count=0)
+            xb = np.array(embs, dtype=np.float32)
+        else:
+            exists = np.array([file_io.file_exists(x) for x in filepaths])
+            filepaths = filepaths[exists]
+            if len(filepaths) < 1:
+                return pb2.SimilarityReponse(similarity=0.0, count=0)
+            xb = self._path_to_xb(filepaths)
+
+        count, features = xb.shape
         center = np.average(xb, 0)
         value = np.mean(cosine_similarity(center.reshape(-1, features), xb))
         return pb2.SimilarityReponse(similarity=value, count=count)
+
+    def _remote_path_to_embedding(self, filepath, client=None):
+        bucket_name, key = self.remote_embedding_info
+        key = "%s/%s" % (key, filepath)
+        client = client or self._client()
+        try:
+            res = client.get_object(Bucket=bucket_name, Key=key)
+            return np.frombuffer(res['Body'].read(), dtype=np.float32)
+        except client.exceptions.NoSuchKey:
+            logging.warn('no key: %s' % key)
+            return None
 
     def ClusterId(self, request, context):
         filepaths = np.array([self._get_filepath(id) for id in request.ids])

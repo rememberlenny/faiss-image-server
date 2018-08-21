@@ -49,10 +49,20 @@ def remove(host, id):
         response = stub.Remove(pb2.IdRequest(id=id))
         print(response.message)
 
+@click.command()
+@click.option('--host', default='localhost:50051', help='host:port')
+@click.argument('ids', type=int, nargs=-1)
+def similarity(host, ids):
+    with grpc.insecure_channel(host) as channel:
+        stub = pb2_grpc.ImageIndexStub(channel)
+        response = stub.Similarity(pb2.SimilarityRequest(ids=ids))
+        print("%s, %s" % (response.similarity, response.count))
+
 cli.add_command(info)
 cli.add_command(search)
 cli.add_command(add)
 cli.add_command(remove)
+cli.add_command(similarity)
 
 if __name__ == '__main__':
   cli()
