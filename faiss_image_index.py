@@ -49,10 +49,12 @@ def url_to_s3_info(url):
 
 class FaissImageIndex(pb2_grpc.ImageIndexServicer):
     def _client(self):
-        session = boto3.session.Session()
-        return session.client('s3')
+        return self._s3_client
 
     def __init__(self, args):
+        session = boto3.session.Session()
+        self._s3_client = session.client('s3')
+
         if args.save_filepath.startswith('s3://'):
             bucket_name, key = url_to_s3_info(args.save_filepath)
             self.remote_save_info = (bucket_name, key)
