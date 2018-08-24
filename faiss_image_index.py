@@ -52,7 +52,6 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
         return self._s3_client
 
     def __init__(self, args):
-        self._pool = Pool(8)
         session = boto3.session.Session()
         self._s3_client = session.client('s3')
 
@@ -141,7 +140,7 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
         all_filepaths = glob.glob('embeddings/*/*.emb')
         files_count = len(all_filepaths)
         logging.info('emb files count: %d', files_count)
-        p = self._pool
+        p = Pool(12)
         p.map(file_io.delete_file, all_filepaths)
         return pb2.SimpleReponse(message=('Reset and deleted %d emb files' % files_count))
 
@@ -149,7 +148,7 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
     def _path_to_xb(self, paths):
         d = self.embedding_service.dim()
         xb = np.ndarray(shape=(len(paths), d), dtype=np.float32)
-        p = self._pool
+        p = Pool(12)
         for i, emb in enumerate(p.imap(path_to_embedding, paths)):
             xb[i] = emb
         return xb
@@ -495,7 +494,7 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
 
         if self.remote_embedding_info:
             client = self._client()
-            p = self._pool
+            p = Pool(min(8, len(filepaths)))
             def _path_to_embedding(filepaths):
                 return self._remote_path_to_embedding(filepaths, client)
             embs = [emb for emb in p.imap(_path_to_embedding, filepaths) if emb is not None]
