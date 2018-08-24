@@ -52,8 +52,9 @@ class FaissImageIndex(pb2_grpc.ImageIndexServicer):
         return self._s3_client
 
     def __init__(self, args):
+        config = botocore.client.Config(connect_timeout=2, read_timeout=5)
         session = boto3.session.Session()
-        self._s3_client = session.client('s3')
+        self._s3_client = session.client('s3', config=config)
 
         if args.save_filepath.startswith('s3://'):
             bucket_name, key = url_to_s3_info(args.save_filepath)
